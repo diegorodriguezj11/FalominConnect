@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "33687699637",
+    "project_id": "autobus-a6f93",
+    "storage_bucket": "autobus-a6f93.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33687699637:android:fbbfe7d423a58be29dfefc",
+        "android_client_info": {
+          "package_name": "com.mycompany.autobus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMrHpQ5MHr_UMgmOK-2RAzvwh1CvTDmAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33687699637:android:99f38cda2b157f0a9dfefc",
+        "android_client_info": {
+          "package_name": "com.vivasoft.autobus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMrHpQ5MHr_UMgmOK-2RAzvwh1CvTDmAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
