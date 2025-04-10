@@ -1,13 +1,16 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'track_location_model.dart';
 export 'track_location_model.dart';
 
 class TrackLocationWidget extends StatefulWidget {
   const TrackLocationWidget({super.key});
+
+  static String routeName = 'TrackLocation';
+  static String routePath = '/trackLocation';
 
   @override
   State<TrackLocationWidget> createState() => _TrackLocationWidgetState();
@@ -22,6 +25,8 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TrackLocationModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -61,7 +66,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,11 +86,11 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                   size: 24.0,
                                 ),
                                 onPressed: () async {
-                                  context.pushNamed('Index1');
+                                  context.pushNamed(IndexWidget.routeName);
                                 },
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 10.0),
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -93,12 +98,12 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                     borderRadius: BorderRadius.circular(20.0),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         8.0, 16.0, 8.0, 16.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        const Icon(
+                                        Icon(
                                           Icons.directions_bus,
                                           color: Color(0xFF1B374C),
                                           size: 24.0,
@@ -108,14 +113,14 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge
                                               .override(
-                                                font: GoogleFonts.inter(),
+                                                fontFamily: 'Inter',
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(const SizedBox(width: 8.0)),
+                                      ].divide(SizedBox(width: 8.0)),
                                     ),
                                   ),
                                 ),
@@ -129,7 +134,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                               borderRadius: BorderRadius.circular(16.0),
                             ),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
+                              padding: EdgeInsetsDirectional.fromSTEB(
                                   12.0, 16.0, 12.0, 16.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -138,10 +143,10 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                     width: 40.0,
                                     height: 40.0,
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFF1B374C),
+                                      color: Color(0xFF1B374C),
                                       borderRadius: BorderRadius.circular(20.0),
                                     ),
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.person,
                                       color: Colors.white,
                                       size: 24.0,
@@ -156,7 +161,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyLarge
                                               .override(
-                                                font: GoogleFonts.inter(),
+                                                fontFamily: 'Inter',
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
@@ -165,7 +170,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodySmall
                                               .override(
-                                                font: GoogleFonts.inter(),
+                                                fontFamily: 'Inter',
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryText,
@@ -175,37 +180,27 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                       ],
                                     ),
                                   ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed('Map');
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFF1B374C),
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            4.0, 12.0, 4.0, 12.0),
-                                        child: Text(
-                                          'See Route',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodySmall
-                                              .override(
-                                                font: GoogleFonts.inter(),
-                                                color: Colors.white,
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF1B374C),
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          4.0, 12.0, 4.0, 12.0),
+                                      child: Text(
+                                        'See Route',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color: Colors.white,
+                                              letterSpacing: 0.0,
+                                            ),
                                       ),
                                     ),
                                   ),
-                                ].divide(const SizedBox(width: 12.0)),
+                                ].divide(SizedBox(width: 12.0)),
                               ),
                             ),
                           ),
@@ -218,7 +213,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
               Material(
                 color: Colors.transparent,
                 elevation: 4.0,
-                shape: const RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(0.0),
                     bottomRight: Radius.circular(0.0),
@@ -228,7 +223,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                 ),
                 child: Container(
                   width: MediaQuery.sizeOf(context).width * 1.0,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(0.0),
@@ -239,7 +234,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                   ),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+                        EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -252,25 +247,25 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .headlineSmall
                                   .override(
-                                    font: GoogleFonts.interTight(),
+                                    fontFamily: 'Inter Tight',
                                     letterSpacing: 0.0,
                                   ),
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xFF1B374C),
+                                color: Color(0xFF1B374C),
                                 borderRadius: BorderRadius.circular(24.0),
                                 shape: BoxShape.rectangle,
                               ),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     4.0, 12.0, 4.0, 12.0),
                                 child: Text(
                                   'ETA: 3:45 PM',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        font: GoogleFonts.inter(),
+                                        fontFamily: 'Inter',
                                         color: Colors.white,
                                         letterSpacing: 0.0,
                                       ),
@@ -293,7 +288,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 16.0, 16.0, 16.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -302,11 +297,11 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                       width: 50.0,
                                       height: 50.0,
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFF1A6298),
+                                        color: Color(0xFF1A6298),
                                         borderRadius:
                                             BorderRadius.circular(25.0),
                                       ),
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.location_on,
                                         color: Color(0xFF1B374C),
                                         size: 24.0,
@@ -321,7 +316,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge
                                                 .override(
-                                                  font: GoogleFonts.inter(),
+                                                  fontFamily: 'Inter',
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
@@ -330,7 +325,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.inter(),
+                                                  fontFamily: 'Inter',
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
@@ -340,7 +335,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                         ],
                                       ),
                                     ),
-                                  ].divide(const SizedBox(width: 16.0)),
+                                  ].divide(SizedBox(width: 16.0)),
                                 ),
                               ),
                             ),
@@ -352,7 +347,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 16.0, 16.0, 16.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -361,11 +356,11 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                       width: 50.0,
                                       height: 50.0,
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFF1A6298),
+                                        color: Color(0xFF1A6298),
                                         borderRadius:
                                             BorderRadius.circular(25.0),
                                       ),
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.location_on,
                                         color: Color(0xFF1B374C),
                                         size: 24.0,
@@ -380,7 +375,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge
                                                 .override(
-                                                  font: GoogleFonts.inter(),
+                                                  fontFamily: 'Inter',
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
@@ -389,7 +384,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.inter(),
+                                                  fontFamily: 'Inter',
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
@@ -399,7 +394,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                         ],
                                       ),
                                     ),
-                                  ].divide(const SizedBox(width: 16.0)),
+                                  ].divide(SizedBox(width: 16.0)),
                                 ),
                               ),
                             ),
@@ -411,7 +406,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 16.0, 16.0, 16.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -420,11 +415,11 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                       width: 50.0,
                                       height: 50.0,
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFF1A6298),
+                                        color: Color(0xFF1A6298),
                                         borderRadius:
                                             BorderRadius.circular(25.0),
                                       ),
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.location_on,
                                         color: Color(0xFF1B374C),
                                         size: 24.0,
@@ -439,7 +434,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge
                                                 .override(
-                                                  font: GoogleFonts.inter(),
+                                                  fontFamily: 'Inter',
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
@@ -448,7 +443,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.inter(),
+                                                  fontFamily: 'Inter',
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
@@ -458,7 +453,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                         ],
                                       ),
                                     ),
-                                  ].divide(const SizedBox(width: 16.0)),
+                                  ].divide(SizedBox(width: 16.0)),
                                 ),
                               ),
                             ),
@@ -470,7 +465,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 16.0, 16.0, 16.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -479,11 +474,11 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                       width: 50.0,
                                       height: 50.0,
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFF1A6298),
+                                        color: Color(0xFF1A6298),
                                         borderRadius:
                                             BorderRadius.circular(25.0),
                                       ),
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.location_on,
                                         color: Color(0xFF1B374C),
                                         size: 24.0,
@@ -498,7 +493,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge
                                                 .override(
-                                                  font: GoogleFonts.inter(),
+                                                  fontFamily: 'Inter',
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
@@ -507,7 +502,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.inter(),
+                                                  fontFamily: 'Inter',
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
@@ -517,7 +512,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                         ],
                                       ),
                                     ),
-                                  ].divide(const SizedBox(width: 16.0)),
+                                  ].divide(SizedBox(width: 16.0)),
                                 ),
                               ),
                             ),
@@ -529,7 +524,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 16.0, 16.0, 16.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -538,11 +533,11 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                       width: 50.0,
                                       height: 50.0,
                                       decoration: BoxDecoration(
-                                        color: const Color(0xFF1A6298),
+                                        color: Color(0xFF1A6298),
                                         borderRadius:
                                             BorderRadius.circular(25.0),
                                       ),
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.location_on,
                                         color: Color(0xFF1B374C),
                                         size: 24.0,
@@ -557,7 +552,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyLarge
                                                 .override(
-                                                  font: GoogleFonts.inter(),
+                                                  fontFamily: 'Inter',
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
@@ -566,7 +561,7 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                             style: FlutterFlowTheme.of(context)
                                                 .bodySmall
                                                 .override(
-                                                  font: GoogleFonts.inter(),
+                                                  fontFamily: 'Inter',
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryText,
@@ -576,13 +571,13 @@ class _TrackLocationWidgetState extends State<TrackLocationWidget> {
                                         ],
                                       ),
                                     ),
-                                  ].divide(const SizedBox(width: 16.0)),
+                                  ].divide(SizedBox(width: 16.0)),
                                 ),
                               ),
                             ),
-                          ].divide(const SizedBox(height: 16.0)),
+                          ].divide(SizedBox(height: 16.0)),
                         ),
-                      ].divide(const SizedBox(height: 16.0)),
+                      ].divide(SizedBox(height: 16.0)),
                     ),
                   ),
                 ),

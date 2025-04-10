@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "33687699637",
-    "project_id": "autobus-a6f93",
-    "storage_bucket": "autobus-a6f93.firebasestorage.app"
+    "project_number": "664899191021",
+    "project_id": "tienda-f7723",
+    "storage_bucket": "tienda-f7723.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:33687699637:android:fbbfe7d423a58be29dfefc",
+        "mobilesdk_app_id": "1:664899191021:android:6d354ad1b5164b33138ce4",
         "android_client_info": {
-          "package_name": "com.mycompany.autobus"
+          "package_name": "com.vivasoft.autobus"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDMrHpQ5MHr_UMgmOK-2RAzvwh1CvTDmAQ"
+          "current_key": "AIzaSyBSQhc9R9y1l5I3OLLI2JpugCEh9VQfJ5A"
         }
       ],
       "services": {
@@ -26,15 +26,15 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:33687699637:android:99f38cda2b157f0a9dfefc",
+        "mobilesdk_app_id": "1:664899191021:android:f7402bc5236a4fdf138ce4",
         "android_client_info": {
-          "package_name": "com.vivasoft.autobus"
+          "package_name": "com.vivasoft.tienda"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDMrHpQ5MHr_UMgmOK-2RAzvwh1CvTDmAQ"
+          "current_key": "AIzaSyBSQhc9R9y1l5I3OLLI2JpugCEh9VQfJ5A"
         }
       ],
       "services": {

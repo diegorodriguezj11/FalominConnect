@@ -9,9 +9,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class UsersRecord extends FirestoreRecord {
   UsersRecord._(
-    super.reference,
-    super.data,
-  ) {
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -45,6 +45,36 @@ class UsersRecord extends FirestoreRecord {
   String get phoneNumber => _phoneNumber ?? '';
   bool hasPhoneNumber() => _phoneNumber != null;
 
+  // "City" field.
+  String? _city;
+  String get city => _city ?? '';
+  bool hasCity() => _city != null;
+
+  // "IsAdmin" field.
+  bool? _isAdmin;
+  bool get isAdmin => _isAdmin ?? false;
+  bool hasIsAdmin() => _isAdmin != null;
+
+  // "role" field.
+  String? _role;
+  String get role => _role ?? '';
+  bool hasRole() => _role != null;
+
+  // "shortDescription" field.
+  String? _shortDescription;
+  String get shortDescription => _shortDescription ?? '';
+  bool hasShortDescription() => _shortDescription != null;
+
+  // "last_active_time" field.
+  DateTime? _lastActiveTime;
+  DateTime? get lastActiveTime => _lastActiveTime;
+  bool hasLastActiveTime() => _lastActiveTime != null;
+
+  // "title" field.
+  String? _title;
+  String get title => _title ?? '';
+  bool hasTitle() => _title != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -52,6 +82,12 @@ class UsersRecord extends FirestoreRecord {
     _uid = snapshotData['uid'] as String?;
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
+    _city = snapshotData['City'] as String?;
+    _isAdmin = snapshotData['IsAdmin'] as bool?;
+    _role = snapshotData['role'] as String?;
+    _shortDescription = snapshotData['shortDescription'] as String?;
+    _lastActiveTime = snapshotData['last_active_time'] as DateTime?;
+    _title = snapshotData['title'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -94,6 +130,12 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
+  String? city,
+  bool? isAdmin,
+  String? role,
+  String? shortDescription,
+  DateTime? lastActiveTime,
+  String? title,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -103,6 +145,12 @@ Map<String, dynamic> createUsersRecordData({
       'uid': uid,
       'created_time': createdTime,
       'phone_number': phoneNumber,
+      'City': city,
+      'IsAdmin': isAdmin,
+      'role': role,
+      'shortDescription': shortDescription,
+      'last_active_time': lastActiveTime,
+      'title': title,
     }.withoutNulls,
   );
 
@@ -119,7 +167,13 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.photoUrl == e2?.photoUrl &&
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
-        e1?.phoneNumber == e2?.phoneNumber;
+        e1?.phoneNumber == e2?.phoneNumber &&
+        e1?.city == e2?.city &&
+        e1?.isAdmin == e2?.isAdmin &&
+        e1?.role == e2?.role &&
+        e1?.shortDescription == e2?.shortDescription &&
+        e1?.lastActiveTime == e2?.lastActiveTime &&
+        e1?.title == e2?.title;
   }
 
   @override
@@ -129,7 +183,13 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.photoUrl,
         e?.uid,
         e?.createdTime,
-        e?.phoneNumber
+        e?.phoneNumber,
+        e?.city,
+        e?.isAdmin,
+        e?.role,
+        e?.shortDescription,
+        e?.lastActiveTime,
+        e?.title
       ]);
 
   @override

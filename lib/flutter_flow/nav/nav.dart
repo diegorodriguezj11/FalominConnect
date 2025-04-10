@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
-import '/index.dart';
+import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+
+import '/index.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -75,85 +78,460 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const Index1Widget() : const LoginWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : Auth2Widget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const Index1Widget() : const LoginWidget(),
+              appStateNotifier.loggedIn ? NavBarPage() : Auth2Widget(),
         ),
         FFRoute(
-          name: 'Login',
-          path: '/login',
-          builder: (context, params) => const LoginWidget(),
+          name: TrackLocationWidget.routeName,
+          path: TrackLocationWidget.routePath,
+          builder: (context, params) => TrackLocationWidget(),
         ),
         FFRoute(
-          name: 'Index1',
-          path: '/index1',
-          builder: (context, params) => const Index1Widget(),
+          name: MapWidget.routeName,
+          path: MapWidget.routePath,
+          builder: (context, params) => MapWidget(),
         ),
         FFRoute(
-          name: 'TrackLocation',
-          path: '/trackLocation',
-          builder: (context, params) => const TrackLocationWidget(),
+          name: DriverInformationWidget.routeName,
+          path: DriverInformationWidget.routePath,
+          asyncParams: {
+            'name': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'schoolName': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'licenseN': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'photo': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'experience': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'email': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'certifications': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'serviceArea': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'schedule': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'phone': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'emergencyNumber': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'routeNumber': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'numberBus': getDoc(['Driver'], DriverRecord.fromSnapshot),
+          },
+          builder: (context, params) => DriverInformationWidget(
+            name: params.getParam(
+              'name',
+              ParamType.Document,
+            ),
+            schoolName: params.getParam(
+              'schoolName',
+              ParamType.Document,
+            ),
+            licenseN: params.getParam(
+              'licenseN',
+              ParamType.Document,
+            ),
+            photo: params.getParam(
+              'photo',
+              ParamType.Document,
+            ),
+            experience: params.getParam(
+              'experience',
+              ParamType.Document,
+            ),
+            email: params.getParam(
+              'email',
+              ParamType.Document,
+            ),
+            certifications: params.getParam(
+              'certifications',
+              ParamType.Document,
+            ),
+            serviceArea: params.getParam(
+              'serviceArea',
+              ParamType.Document,
+            ),
+            schedule: params.getParam(
+              'schedule',
+              ParamType.Document,
+            ),
+            phone: params.getParam(
+              'phone',
+              ParamType.Document,
+            ),
+            emergencyNumber: params.getParam(
+              'emergencyNumber',
+              ParamType.Document,
+            ),
+            routeNumber: params.getParam(
+              'routeNumber',
+              ParamType.Document,
+            ),
+            numberBus: params.getParam(
+              'numberBus',
+              ParamType.Document,
+            ),
+          ),
         ),
         FFRoute(
-          name: 'Map',
-          path: '/map',
-          builder: (context, params) => const MapWidget(),
+          name: ProfileWidget.routeName,
+          path: ProfileWidget.routePath,
+          asyncParams: {
+            'name': getDoc(['users'], UsersRecord.fromSnapshot),
+            'email': getDoc(['users'], UsersRecord.fromSnapshot),
+            'phone': getDoc(['users'], UsersRecord.fromSnapshot),
+            'city': getDoc(['users'], UsersRecord.fromSnapshot),
+            'photo': getDoc(['users'], UsersRecord.fromSnapshot),
+          },
+          builder: (context, params) => ProfileWidget(
+            name: params.getParam(
+              'name',
+              ParamType.Document,
+            ),
+            email: params.getParam(
+              'email',
+              ParamType.Document,
+            ),
+            phone: params.getParam(
+              'phone',
+              ParamType.Document,
+            ),
+            city: params.getParam(
+              'city',
+              ParamType.Document,
+            ),
+            photo: params.getParam(
+              'photo',
+              ParamType.Document,
+            ),
+          ),
         ),
         FFRoute(
-          name: 'DriverInformation',
-          path: '/driverInformation',
-          builder: (context, params) => const DriverInformationWidget(),
+          name: EditProfileWidget.routeName,
+          path: EditProfileWidget.routePath,
+          asyncParams: {
+            'name': getDoc(['users'], UsersRecord.fromSnapshot),
+            'email': getDoc(['users'], UsersRecord.fromSnapshot),
+            'city': getDoc(['users'], UsersRecord.fromSnapshot),
+            'phone': getDoc(['users'], UsersRecord.fromSnapshot),
+            'photo': getDoc(['users'], UsersRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditProfileWidget(
+            name: params.getParam(
+              'name',
+              ParamType.Document,
+            ),
+            email: params.getParam(
+              'email',
+              ParamType.Document,
+            ),
+            city: params.getParam(
+              'city',
+              ParamType.Document,
+            ),
+            phone: params.getParam(
+              'phone',
+              ParamType.Document,
+            ),
+            photo: params.getParam(
+              'photo',
+              ParamType.Document,
+            ),
+          ),
         ),
         FFRoute(
-          name: 'DriverMenssage',
-          path: '/driverMenssage',
-          builder: (context, params) => const DriverMenssageWidget(),
+          name: ChangePasswordWidget.routeName,
+          path: ChangePasswordWidget.routePath,
+          builder: (context, params) => ChangePasswordWidget(),
         ),
         FFRoute(
-          name: 'Profile',
-          path: '/profile',
-          builder: (context, params) => const ProfileWidget(),
+          name: DriversWidget.routeName,
+          path: DriversWidget.routePath,
+          builder: (context, params) => DriversWidget(),
         ),
         FFRoute(
-          name: 'EditProfile',
-          path: '/editProfile',
-          builder: (context, params) => const EditProfileWidget(),
+          name: TripsWidget.routeName,
+          path: TripsWidget.routePath,
+          builder: (context, params) => TripsWidget(),
         ),
         FFRoute(
-          name: 'ChangePassword',
-          path: '/changePassword',
-          builder: (context, params) => const ChangePasswordWidget(),
+          name: SchoolWidget.routeName,
+          path: SchoolWidget.routePath,
+          builder: (context, params) => SchoolWidget(),
         ),
         FFRoute(
-          name: 'Drivers',
-          path: '/drivers',
-          builder: (context, params) => const DriversWidget(),
+          name: LocationWidget.routeName,
+          path: LocationWidget.routePath,
+          builder: (context, params) => LocationWidget(),
         ),
         FFRoute(
-          name: 'Trips',
-          path: '/trips',
-          builder: (context, params) => const TripsWidget(),
+          name: CertificationsWidget.routeName,
+          path: CertificationsWidget.routePath,
+          builder: (context, params) => CertificationsWidget(),
         ),
         FFRoute(
-          name: 'school',
-          path: '/school',
-          builder: (context, params) => const SchoolWidget(),
+          name: IndexWidget.routeName,
+          path: IndexWidget.routePath,
+          builder: (context, params) =>
+              params.isEmpty ? NavBarPage(initialPage: 'Index') : IndexWidget(),
         ),
         FFRoute(
-          name: 'Location',
-          path: '/location',
-          builder: (context, params) => const LocationWidget(),
+          name: CreateDriverWidget.routeName,
+          path: CreateDriverWidget.routePath,
+          builder: (context, params) => CreateDriverWidget(),
         ),
         FFRoute(
-          name: 'RegisterforTransportation',
-          path: '/registerforTransportation',
-          builder: (context, params) => const RegisterforTransportationWidget(),
+          name: EditDriverWidget.routeName,
+          path: EditDriverWidget.routePath,
+          asyncParams: {
+            'name': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'school': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'licenseNumber': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'experience': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'phione': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'email': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'emergencyPhone': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'certifications': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'routeNumber': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'serviceArea': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'schedule': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'photo': getDoc(['Driver'], DriverRecord.fromSnapshot),
+            'numberBus': getDoc(['Driver'], DriverRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditDriverWidget(
+            name: params.getParam(
+              'name',
+              ParamType.Document,
+            ),
+            school: params.getParam(
+              'school',
+              ParamType.Document,
+            ),
+            licenseNumber: params.getParam(
+              'licenseNumber',
+              ParamType.Document,
+            ),
+            experience: params.getParam(
+              'experience',
+              ParamType.Document,
+            ),
+            phione: params.getParam(
+              'phione',
+              ParamType.Document,
+            ),
+            email: params.getParam(
+              'email',
+              ParamType.Document,
+            ),
+            emergencyPhone: params.getParam(
+              'emergencyPhone',
+              ParamType.Document,
+            ),
+            certifications: params.getParam(
+              'certifications',
+              ParamType.Document,
+            ),
+            routeNumber: params.getParam(
+              'routeNumber',
+              ParamType.Document,
+            ),
+            serviceArea: params.getParam(
+              'serviceArea',
+              ParamType.Document,
+            ),
+            schedule: params.getParam(
+              'schedule',
+              ParamType.Document,
+            ),
+            photo: params.getParam(
+              'photo',
+              ParamType.Document,
+            ),
+            numberBus: params.getParam(
+              'numberBus',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: UsersWidget.routeName,
+          path: UsersWidget.routePath,
+          builder: (context, params) => UsersWidget(),
+        ),
+        FFRoute(
+          name: RegisterSonWidget.routeName,
+          path: RegisterSonWidget.routePath,
+          builder: (context, params) => RegisterSonWidget(),
+        ),
+        FFRoute(
+          name: EditRegisterforTransportationWidget.routeName,
+          path: EditRegisterforTransportationWidget.routePath,
+          asyncParams: {
+            'schoolName': getDoc(['School'], SchoolRecord.fromSnapshot),
+            'type': getDoc(['School'], SchoolRecord.fromSnapshot),
+            'location': getDoc(['School'], SchoolRecord.fromSnapshot),
+            'photo': getDoc(['School'], SchoolRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditRegisterforTransportationWidget(
+            schoolName: params.getParam(
+              'schoolName',
+              ParamType.Document,
+            ),
+            type: params.getParam(
+              'type',
+              ParamType.Document,
+            ),
+            location: params.getParam(
+              'location',
+              ParamType.Document,
+            ),
+            photo: params.getParam(
+              'photo',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: Auth2Widget.routeName,
+          path: Auth2Widget.routePath,
+          builder: (context, params) => Auth2Widget(),
+        ),
+        FFRoute(
+          name: UserEditWidget.routeName,
+          path: UserEditWidget.routePath,
+          builder: (context, params) => UserEditWidget(
+            imageParameter: params.getParam(
+              'imageParameter',
+              ParamType.String,
+            ),
+            emailParameter: params.getParam(
+              'emailParameter',
+              ParamType.String,
+            ),
+            userName: params.getParam(
+              'userName',
+              ParamType.String,
+            ),
+            phoneParameter: params.getParam(
+              'phoneParameter',
+              ParamType.String,
+            ),
+            roleParameter: params.getParam(
+              'roleParameter',
+              ParamType.String,
+            ),
+            roleSwitchParameter: params.getParam(
+              'roleSwitchParameter',
+              ParamType.bool,
+            ),
+            userSelectionParameter: params.getParam(
+              'userSelectionParameter',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: Chat2DetailsWidget.routeName,
+          path: Chat2DetailsWidget.routePath,
+          asyncParams: {
+            'chatRef': getDoc(['chats'], ChatsRecord.fromSnapshot),
+          },
+          builder: (context, params) => Chat2DetailsWidget(
+            chatRef: params.getParam(
+              'chatRef',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: Chat2MainWidget.routeName,
+          path: Chat2MainWidget.routePath,
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'chat_2_main')
+              : Chat2MainWidget(),
+        ),
+        FFRoute(
+          name: Chat2InviteUsersWidget.routeName,
+          path: Chat2InviteUsersWidget.routePath,
+          asyncParams: {
+            'chatRef': getDoc(['chats'], ChatsRecord.fromSnapshot),
+          },
+          builder: (context, params) => Chat2InviteUsersWidget(
+            chatRef: params.getParam(
+              'chatRef',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: ImageDetailsWidget.routeName,
+          path: ImageDetailsWidget.routePath,
+          asyncParams: {
+            'chatMessage':
+                getDoc(['chat_messages'], ChatMessagesRecord.fromSnapshot),
+          },
+          builder: (context, params) => ImageDetailsWidget(
+            chatMessage: params.getParam(
+              'chatMessage',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: CreateUserWidget.routeName,
+          path: CreateUserWidget.routePath,
+          builder: (context, params) => CreateUserWidget(),
+        ),
+        FFRoute(
+          name: UserPasswordWidget.routeName,
+          path: UserPasswordWidget.routePath,
+          builder: (context, params) => UserPasswordWidget(),
+        ),
+        FFRoute(
+          name: ModifyUserDestinationsWidget.routeName,
+          path: ModifyUserDestinationsWidget.routePath,
+          builder: (context, params) => ModifyUserDestinationsWidget(),
+        ),
+        FFRoute(
+          name: CreateSchoolWidget.routeName,
+          path: CreateSchoolWidget.routePath,
+          builder: (context, params) => CreateSchoolWidget(),
+        ),
+        FFRoute(
+          name: CreateRoutesWidget.routeName,
+          path: CreateRoutesWidget.routePath,
+          builder: (context, params) => CreateRoutesWidget(),
+        ),
+        FFRoute(
+          name: AdministratorWidget.routeName,
+          path: AdministratorWidget.routePath,
+          builder: (context, params) => AdministratorWidget(),
+        ),
+        FFRoute(
+          name: DriversRoutesWidget.routeName,
+          path: DriversRoutesWidget.routePath,
+          builder: (context, params) => DriversRoutesWidget(),
+        ),
+        FFRoute(
+          name: CreateStopsWidget.routeName,
+          path: CreateStopsWidget.routePath,
+          builder: (context, params) => CreateStopsWidget(),
+        ),
+        FFRoute(
+          name: MapDriverWidget.routeName,
+          path: MapDriverWidget.routePath,
+          builder: (context, params) => MapDriverWidget(),
+        ),
+        FFRoute(
+          name: RatingsWidget.routeName,
+          path: RatingsWidget.routePath,
+          builder: (context, params) => RatingsWidget(),
+        ),
+        FFRoute(
+          name: AdminRating2Widget.routeName,
+          path: AdminRating2Widget.routePath,
+          builder: (context, params) => AdminRating2Widget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
+      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {
@@ -322,7 +700,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/login';
+            return '/auth2';
           }
           return null;
         },
@@ -389,7 +767,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {
