@@ -1774,8 +1774,12 @@ class _IndexWidgetState extends State<IndexWidget> {
                                               ],
                                             ),
                                             FFButtonWidget(
-                                              onPressed: () {
-                                                print('Button pressed ...');
+                                              onPressed: () async {
+                                                await actions
+                                                    .abrirRutaConWazeDesdeFirestore(
+                                                  context,
+                                                  currentUserReference!.id,
+                                                );
                                               },
                                               text: 'Call',
                                               options: FFButtonOptions(

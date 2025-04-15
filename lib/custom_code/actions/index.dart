@@ -24,3 +24,5 @@ export 'start_trip.dart' show startTrip;
 export 'compartir_ubicacion.dart' show compartirUbicacion;
 export 'actualizar_colores_de_marcadores.dart'
     show actualizarColoresDeMarcadores;
+export 'abrir_ruta_con_waze_desde_firestore.dart'
+    show abrirRutaConWazeDesdeFirestore;
