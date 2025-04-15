@@ -22,7 +22,6 @@ export '/client_view/register_son/register_son_widget.dart'
     show RegisterSonWidget;
 export '/edit_registerfor_transportation/edit_registerfor_transportation_widget.dart'
     show EditRegisterforTransportationWidget;
-export '/auth/auth2/auth2_widget.dart' show Auth2Widget;
 export '/admin_view/user_edit/user_edit_widget.dart' show UserEditWidget;
 export '/chat_group/chat_2_details/chat2_details_widget.dart'
     show Chat2DetailsWidget;
@@ -46,3 +45,6 @@ export '/drivers/map_driver/map_driver_widget.dart' show MapDriverWidget;
 export '/client_view/ratings/ratings_widget.dart' show RatingsWidget;
 export '/admin_view/admin_rating2/admin_rating2_widget.dart'
     show AdminRating2Widget;
+export '/login/login_widget.dart' show LoginWidget;
+export '/auth/autetification/autetification_widget.dart'
+    show AutetificationWidget;

@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -246,8 +247,12 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
                           );
                         },
                       );
+                      GoRouter.of(context).prepareAuthEvent();
+                      await authManager.signOut();
+                      GoRouter.of(context).clearRedirectLocation();
 
-                      context.pushNamed(Auth2Widget.routeName);
+                      context.goNamedAuth(
+                          AutetificationWidget.routeName, context.mounted);
                     },
                     text: 'Send Link',
                     options: FFButtonOptions(

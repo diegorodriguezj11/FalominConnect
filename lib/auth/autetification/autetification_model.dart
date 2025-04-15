@@ -1,12 +1,11 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
-import 'auth2_widget.dart' show Auth2Widget;
+import 'autetification_widget.dart' show AutetificationWidget;
 import 'package:flutter/material.dart';
 
-class Auth2Model extends FlutterFlowModel<Auth2Widget> {
+class AutetificationModel extends FlutterFlowModel<AutetificationWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final formKey = GlobalKey<FormState>();
   // State field(s) for TabBar widget.
   TabController? tabBarController;
   int get tabBarCurrentIndex =>

@@ -905,7 +905,7 @@ class _IndexWidgetState extends State<IndexWidget> {
                                               .clearRedirectLocation();
 
                                           context.goNamedAuth(
-                                              Auth2Widget.routeName,
+                                              AutetificationWidget.routeName,
                                               context.mounted);
                                         },
                                         child: Icon(
@@ -931,7 +931,7 @@ class _IndexWidgetState extends State<IndexWidget> {
                                                 .clearRedirectLocation();
 
                                             context.goNamedAuth(
-                                                Auth2Widget.routeName,
+                                                AutetificationWidget.routeName,
                                                 context.mounted);
                                           },
                                           child: Text(

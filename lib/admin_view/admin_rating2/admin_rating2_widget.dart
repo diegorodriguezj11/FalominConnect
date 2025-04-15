@@ -501,8 +501,8 @@ class _AdminRating2WidgetState extends State<AdminRating2Widget>
                             await authManager.signOut();
                             GoRouter.of(context).clearRedirectLocation();
 
-                            context.goNamedAuth(
-                                Auth2Widget.routeName, context.mounted);
+                            context.goNamedAuth(AutetificationWidget.routeName,
+                                context.mounted);
                           },
                           text: 'LogOut',
                           options: FFButtonOptions(

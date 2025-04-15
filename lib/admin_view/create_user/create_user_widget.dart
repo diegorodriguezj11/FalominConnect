@@ -601,7 +601,7 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                       GoRouter.of(context).clearRedirectLocation();
 
                       context.goNamedAuth(
-                          Auth2Widget.routeName, context.mounted);
+                          AutetificationWidget.routeName, context.mounted);
                     },
                     text: 'Create User',
                     options: FFButtonOptions(

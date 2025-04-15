@@ -731,8 +731,15 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          context
-                                              .pushNamed(Auth2Widget.routeName);
+                                          GoRouter.of(context)
+                                              .prepareAuthEvent();
+                                          await authManager.signOut();
+                                          GoRouter.of(context)
+                                              .clearRedirectLocation();
+
+                                          context.goNamedAuth(
+                                              AutetificationWidget.routeName,
+                                              context.mounted);
                                         },
                                         child: Icon(
                                           Icons.login_rounded,
