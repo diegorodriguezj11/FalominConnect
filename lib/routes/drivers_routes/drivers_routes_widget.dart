@@ -281,7 +281,7 @@ class _DriversRoutesWidgetState extends State<DriversRoutesWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      'Select Driver ',
+                                      'Select School ',
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
@@ -336,7 +336,7 @@ class _DriversRoutesWidgetState extends State<DriversRoutesWidget> {
                                                             fontFamily: 'Inter',
                                                             letterSpacing: 0.0,
                                                           ),
-                                                  hintText: 'Select Driver',
+                                                  hintText: 'Select School',
                                                   icon: Icon(
                                                     Icons
                                                         .keyboard_arrow_down_rounded,

@@ -12,37 +12,32 @@ export 'driver_information_model.dart';
 class DriverInformationWidget extends StatefulWidget {
   const DriverInformationWidget({
     super.key,
-    required this.name,
-    required this.schoolName,
-    required this.licenseN,
-    required this.photo,
-    required this.experience,
-    required this.email,
-    required this.certifications,
-    required this.serviceArea,
-    required this.schedule,
-    required this.phone,
-    required this.emergencyNumber,
-    required this.routeNumber,
-    required this.numberBus,
+    this.name,
+    this.licenseN,
+    this.photo,
+    this.experience,
+    this.email,
+    this.certifications,
+    this.serviceArea,
+    this.schedule,
+    this.phone,
+    this.emergencyNumber,
+    this.routeNumber,
+    this.numberBus,
   });
 
-  final DriverRecord? name;
-
-  /// SchoolName
-  final DriverRecord? schoolName;
-
-  final DriverRecord? licenseN;
-  final DriverRecord? photo;
-  final DriverRecord? experience;
-  final DriverRecord? email;
-  final DriverRecord? certifications;
-  final DriverRecord? serviceArea;
-  final DriverRecord? schedule;
-  final DriverRecord? phone;
-  final DriverRecord? emergencyNumber;
-  final DriverRecord? routeNumber;
-  final DriverRecord? numberBus;
+  final UsersRecord? name;
+  final UsersRecord? licenseN;
+  final UsersRecord? photo;
+  final UsersRecord? experience;
+  final UsersRecord? email;
+  final UsersRecord? certifications;
+  final UsersRecord? serviceArea;
+  final UsersRecord? schedule;
+  final UsersRecord? phone;
+  final UsersRecord? emergencyNumber;
+  final UsersRecord? routeNumber;
+  final UsersRecord? numberBus;
 
   static String routeName = 'DriverInformation';
   static String routePath = '/driverInformation';
@@ -153,115 +148,81 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              StreamBuilder<List<DriverRecord>>(
-                                stream: queryDriverRecord(
-                                  singleRecord: true,
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
-                                        child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                            FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Material(
+                                    color: Colors.transparent,
+                                    elevation: 4.0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(70.0),
+                                    ),
+                                    child: Container(
+                                      width: 140.0,
+                                      height: 140.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(70.0),
+                                        border: Border.all(
+                                          color: Color(0xFF1B374C),
+                                          width: 4.0,
                                         ),
                                       ),
-                                    );
-                                  }
-                                  List<DriverRecord> columnDriverRecordList =
-                                      snapshot.data!;
-                                  // Return an empty Container when the item does not exist.
-                                  if (snapshot.data!.isEmpty) {
-                                    return Container();
-                                  }
-                                  final columnDriverRecord =
-                                      columnDriverRecordList.isNotEmpty
-                                          ? columnDriverRecordList.first
-                                          : null;
-
-                                  return Column(
+                                      child: Container(
+                                        width: 200.0,
+                                        height: 200.0,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Image.network(
+                                          widget.photo!.photoUrl,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Material(
-                                        color: Colors.transparent,
-                                        elevation: 4.0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(70.0),
+                                      Text(
+                                        valueOrDefault<String>(
+                                          widget.name?.displayName,
+                                          'Name',
                                         ),
-                                        child: Container(
-                                          width: 140.0,
-                                          height: 140.0,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            borderRadius:
-                                                BorderRadius.circular(70.0),
-                                            border: Border.all(
-                                              color: Color(0xFF1B374C),
-                                              width: 4.0,
-                                            ),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(70.0),
-                                            child: Image.network(
-                                              widget.photo!.photo,
-                                              width: 140.0,
-                                              height: 140.0,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            valueOrDefault<String>(
-                                              widget.name?.name,
-                                              'Name',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .headlineMedium
-                                                .override(
-                                                  fontFamily: 'Inter Tight',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineMedium
+                                            .override(
+                                              fontFamily: 'Inter Tight',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
                                                       .primaryText,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                          Text(
-                                            valueOrDefault<String>(
-                                              columnDriverRecord?.school,
-                                              'school',
+                                              letterSpacing: 0.0,
                                             ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyLarge
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                        ].divide(SizedBox(height: 4.0)),
                                       ),
-                                    ].divide(SizedBox(height: 16.0)),
-                                  );
-                                },
+                                      Text(
+                                        valueOrDefault<String>(
+                                          widget.email?.email,
+                                          'Email',
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ].divide(SizedBox(height: 4.0)),
+                                  ),
+                                ].divide(SizedBox(height: 16.0)),
                               ),
                               Material(
                                 color: Colors.transparent,
@@ -321,7 +282,8 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                                 Text(
                                                   valueOrDefault<String>(
                                                     widget.licenseN
-                                                        ?.licenseNumber,
+                                                        ?.licenseNumberDriver
+                                                        .toString(),
                                                     'License Number',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -346,33 +308,66 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  'Experience',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      'Experience',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      valueOrDefault<String>(
+                                                        widget.experience
+                                                            ?.experienceDriver,
+                                                        'Experience',
+                                                      ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyLarge
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            letterSpacing: 0.0,
+                                                          ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  2.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'Years',
+                                                        style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                       ),
-                                                ),
-                                                Text(
-                                                  valueOrDefault<String>(
-                                                    widget
-                                                        .experience?.experience,
-                                                    'Experience',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
@@ -404,8 +399,8 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                                 ),
                                                 Text(
                                                   valueOrDefault<String>(
-                                                    widget
-                                                        .numberBus?.numberBus,
+                                                    widget.numberBus
+                                                        ?.numberBusDriver,
                                                     'Number Bus',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -466,7 +461,8 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                             ),
                                             Text(
                                               valueOrDefault<String>(
-                                                widget.photo?.phone,
+                                                widget.photo?.phoneDriver
+                                                    .toString(),
                                                 'Phone',
                                               ),
                                               style:
@@ -513,7 +509,8 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                             Text(
                                               valueOrDefault<String>(
                                                 widget.emergencyNumber
-                                                    ?.emergencyPhone,
+                                                    ?.emergencyPhoneDriver
+                                                    .toString(),
                                                 'EmergencyPhone',
                                               ),
                                               style:
@@ -575,7 +572,7 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                             Text(
                                               valueOrDefault<String>(
                                                 widget.certifications
-                                                    ?.certifications,
+                                                    ?.certificationsDrivers,
                                                 'Certifications',
                                               ),
                                               style:
@@ -651,7 +648,8 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                                 Text(
                                                   valueOrDefault<String>(
                                                     widget.routeNumber
-                                                        ?.routeNumber,
+                                                        ?.routeNumberDriver
+                                                        .toString(),
                                                     'RouteNumber',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -693,7 +691,7 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                                 Text(
                                                   valueOrDefault<String>(
                                                     widget.serviceArea
-                                                        ?.serviceArea,
+                                                        ?.serviceAreaDriver,
                                                     'ServiceArea',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -734,7 +732,8 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                                 ),
                                                 Text(
                                                   valueOrDefault<String>(
-                                                    widget.schedule?.schedule,
+                                                    widget.schedule
+                                                        ?.scheduleDriver,
                                                     'Schedule',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -754,6 +753,102 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                   ),
                                 ),
                               ),
+                              if (currentUserReference?.id ==
+                                  widget.name?.reference.id)
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    context.pushNamed(
+                                      EditDriverWidget.routeName,
+                                      queryParameters: {
+                                        'name': serializeParam(
+                                          widget.name,
+                                          ParamType.Document,
+                                        ),
+                                        'licenseNumber': serializeParam(
+                                          widget.licenseN,
+                                          ParamType.Document,
+                                        ),
+                                        'experience': serializeParam(
+                                          widget.experience,
+                                          ParamType.Document,
+                                        ),
+                                        'phione': serializeParam(
+                                          widget.phone,
+                                          ParamType.Document,
+                                        ),
+                                        'email': serializeParam(
+                                          widget.email,
+                                          ParamType.Document,
+                                        ),
+                                        'emergencyPhone': serializeParam(
+                                          widget.emergencyNumber,
+                                          ParamType.Document,
+                                        ),
+                                        'certifications': serializeParam(
+                                          widget.certifications,
+                                          ParamType.Document,
+                                        ),
+                                        'routeNumber': serializeParam(
+                                          widget.routeNumber,
+                                          ParamType.Document,
+                                        ),
+                                        'serviceArea': serializeParam(
+                                          widget.serviceArea,
+                                          ParamType.Document,
+                                        ),
+                                        'schedule': serializeParam(
+                                          widget.schedule,
+                                          ParamType.Document,
+                                        ),
+                                        'photo': serializeParam(
+                                          widget.photo,
+                                          ParamType.Document,
+                                        ),
+                                        'numberBus': serializeParam(
+                                          widget.numberBus,
+                                          ParamType.Document,
+                                        ),
+                                      }.withoutNulls,
+                                      extra: <String, dynamic>{
+                                        'name': widget.name,
+                                        'licenseNumber': widget.licenseN,
+                                        'experience': widget.experience,
+                                        'phione': widget.phone,
+                                        'email': widget.email,
+                                        'emergencyPhone':
+                                            widget.emergencyNumber,
+                                        'certifications':
+                                            widget.certifications,
+                                        'routeNumber': widget.routeNumber,
+                                        'serviceArea': widget.serviceArea,
+                                        'schedule': widget.schedule,
+                                        'photo': widget.photo,
+                                        'numberBus': widget.numberBus,
+                                      },
+                                    );
+                                  },
+                                  text: 'Edit  Information',
+                                  options: FFButtonOptions(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height: 56.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: Color(0xFF1B374C),
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .override(
+                                          fontFamily: 'Inter Tight',
+                                          color:
+                                              FlutterFlowTheme.of(context).info,
+                                          letterSpacing: 0.0,
+                                        ),
+                                    elevation: 3.0,
+                                    borderRadius: BorderRadius.circular(28.0),
+                                  ),
+                                ),
                               FFButtonWidget(
                                 onPressed: () async {
                                   context.pushNamed(MapWidget.routeName);
@@ -793,10 +888,6 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                         queryParameters: {
                                           'name': serializeParam(
                                             widget.name,
-                                            ParamType.Document,
-                                          ),
-                                          'school': serializeParam(
-                                            widget.schoolName,
                                             ParamType.Document,
                                           ),
                                           'licenseNumber': serializeParam(
@@ -846,7 +937,6 @@ class _DriverInformationWidgetState extends State<DriverInformationWidget> {
                                         }.withoutNulls,
                                         extra: <String, dynamic>{
                                           'name': widget.name,
-                                          'school': widget.schoolName,
                                           'licenseNumber': widget.licenseN,
                                           'experience': widget.experience,
                                           'phione': widget.phone,

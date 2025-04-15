@@ -16,10 +16,11 @@ export 'fetch_stops_by_route_name.dart' show fetchStopsByRouteName;
 export 'save_ride_data.dart' show saveRideData;
 export 'assign_driver_to_route.dart' show assignDriverToRoute;
 export 'fetch_ride_for_driver.dart' show fetchRideForDriver;
-export 'fetch_route_from_google_maps.dart' show fetchRouteFromGoogleMaps;
 export 'start_trip_and_track.dart' show startTripAndTrack;
 export 'request_location_permission_snackbar.dart'
     show requestLocationPermissionSnackbar;
 export 'get_user_location.dart' show getUserLocation;
 export 'start_trip.dart' show startTrip;
-export 'request_location_permission.dart' show requestLocationPermission;
+export 'compartir_ubicacion.dart' show compartirUbicacion;
+export 'actualizar_colores_de_marcadores.dart'
+    show actualizarColoresDeMarcadores;

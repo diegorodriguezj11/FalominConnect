@@ -189,8 +189,13 @@ class _DriversWidgetState extends State<DriversWidget> {
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 1.0, 0.0, 0.0),
-                        child: StreamBuilder<List<DriverRecord>>(
-                          stream: queryDriverRecord(),
+                        child: StreamBuilder<List<UsersRecord>>(
+                          stream: queryUsersRecord(
+                            queryBuilder: (usersRecord) => usersRecord.where(
+                              'role',
+                              isEqualTo: 'Driver',
+                            ),
+                          ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -206,17 +211,17 @@ class _DriversWidgetState extends State<DriversWidget> {
                                 ),
                               );
                             }
-                            List<DriverRecord> listViewDriverRecordList =
+                            List<UsersRecord> listViewUsersRecordList =
                                 snapshot.data!;
 
                             return ListView.builder(
                               padding: EdgeInsets.zero,
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
-                              itemCount: listViewDriverRecordList.length,
+                              itemCount: listViewUsersRecordList.length,
                               itemBuilder: (context, listViewIndex) {
-                                final listViewDriverRecord =
-                                    listViewDriverRecordList[listViewIndex];
+                                final listViewUsersRecord =
+                                    listViewUsersRecordList[listViewIndex];
                                 return Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 1.0),
@@ -263,7 +268,7 @@ class _DriversWidgetState extends State<DriversWidget> {
                                                 borderRadius:
                                                     BorderRadius.circular(44.0),
                                                 child: Image.network(
-                                                  listViewDriverRecord.photo,
+                                                  listViewUsersRecord.photoUrl,
                                                   width: 44.0,
                                                   height: 44.0,
                                                   fit: BoxFit.cover,
@@ -289,7 +294,8 @@ class _DriversWidgetState extends State<DriversWidget> {
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 4.0),
                                                     child: Text(
-                                                      listViewDriverRecord.name,
+                                                      listViewUsersRecord
+                                                          .displayName,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyLarge
@@ -300,7 +306,7 @@ class _DriversWidgetState extends State<DriversWidget> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    listViewDriverRecord.email,
+                                                    listViewUsersRecord.email,
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .labelMedium
@@ -324,83 +330,77 @@ class _DriversWidgetState extends State<DriversWidget> {
                                                     .routeName,
                                                 queryParameters: {
                                                   'name': serializeParam(
-                                                    listViewDriverRecord,
-                                                    ParamType.Document,
-                                                  ),
-                                                  'schoolName': serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                   'licenseN': serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                   'photo': serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                   'experience': serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                   'email': serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                   'certifications':
                                                       serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                   'serviceArea': serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                   'schedule': serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                   'phone': serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                   'emergencyNumber':
                                                       serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                   'routeNumber': serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                   'numberBus': serializeParam(
-                                                    listViewDriverRecord,
+                                                    listViewUsersRecord,
                                                     ParamType.Document,
                                                   ),
                                                 }.withoutNulls,
                                                 extra: <String, dynamic>{
-                                                  'name': listViewDriverRecord,
-                                                  'schoolName':
-                                                      listViewDriverRecord,
+                                                  'name': listViewUsersRecord,
                                                   'licenseN':
-                                                      listViewDriverRecord,
-                                                  'photo': listViewDriverRecord,
+                                                      listViewUsersRecord,
+                                                  'photo': listViewUsersRecord,
                                                   'experience':
-                                                      listViewDriverRecord,
-                                                  'email': listViewDriverRecord,
+                                                      listViewUsersRecord,
+                                                  'email': listViewUsersRecord,
                                                   'certifications':
-                                                      listViewDriverRecord,
+                                                      listViewUsersRecord,
                                                   'serviceArea':
-                                                      listViewDriverRecord,
+                                                      listViewUsersRecord,
                                                   'schedule':
-                                                      listViewDriverRecord,
-                                                  'phone': listViewDriverRecord,
+                                                      listViewUsersRecord,
+                                                  'phone': listViewUsersRecord,
                                                   'emergencyNumber':
-                                                      listViewDriverRecord,
+                                                      listViewUsersRecord,
                                                   'routeNumber':
-                                                      listViewDriverRecord,
+                                                      listViewUsersRecord,
                                                   'numberBus':
-                                                      listViewDriverRecord,
+                                                      listViewUsersRecord,
                                                 },
                                               );
                                             },

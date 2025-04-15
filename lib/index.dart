@@ -33,14 +33,16 @@ export '/chat_group/image_details/image_details_widget.dart'
     show ImageDetailsWidget;
 export '/admin_view/create_user/create_user_widget.dart' show CreateUserWidget;
 export '/auth/user_password/user_password_widget.dart' show UserPasswordWidget;
-export '/modify_user_destinations/modify_user_destinations_widget.dart'
+export '/routes/modify_user_destinations/modify_user_destinations_widget.dart'
     show ModifyUserDestinationsWidget;
 export '/create_school/create_school_widget.dart' show CreateSchoolWidget;
-export '/create_routes/create_routes_widget.dart' show CreateRoutesWidget;
+export '/routes/create_routes/create_routes_widget.dart'
+    show CreateRoutesWidget;
 export '/administrator/administrator_widget.dart' show AdministratorWidget;
-export '/drivers_routes/drivers_routes_widget.dart' show DriversRoutesWidget;
-export '/create_stops/create_stops_widget.dart' show CreateStopsWidget;
-export '/map_driver/map_driver_widget.dart' show MapDriverWidget;
+export '/routes/drivers_routes/drivers_routes_widget.dart'
+    show DriversRoutesWidget;
+export '/routes/create_stops/create_stops_widget.dart' show CreateStopsWidget;
+export '/drivers/map_driver/map_driver_widget.dart' show MapDriverWidget;
 export '/client_view/ratings/ratings_widget.dart' show RatingsWidget;
 export '/admin_view/admin_rating2/admin_rating2_widget.dart'
     show AdminRating2Widget;

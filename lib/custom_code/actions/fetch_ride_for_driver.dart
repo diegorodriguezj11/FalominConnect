@@ -9,59 +9,51 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:auto_bus/flutter_flow/lat_lng.dart'
-    as ff; // Alias para evitar conflictos
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:auto_bus/flutter_flow/lat_lng.dart' as ff;
 
-Future<List<ff.LatLng>> fetchRideForDriver(String driverId) async {
+Future<void> fetchRideForDriver(DocumentReference driverRef) async {
   try {
-    print("🚀 [DEBUG] Iniciando fetchRideForDriver para Driver: $driverId...");
+    print(
+        "🚀 [DEBUG] Iniciando fetchRideForDriver para DriverRef: ${driverRef.id}...");
 
-    // 📌 1️⃣ Buscar el routeDriver asignado al driver
+    // 1️⃣ Buscar el routeDriver asignado al driver
     QuerySnapshot routeDriverSnapshot = await FirebaseFirestore.instance
         .collection('routeDriver')
-        .where('driver_ref',
-            isEqualTo:
-                FirebaseFirestore.instance.collection('users').doc(driverId))
+        .where('driver_ref', isEqualTo: driverRef)
         .limit(1)
         .get();
 
     if (routeDriverSnapshot.docs.isEmpty) {
       print("⚠️ [WARNING] No se encontró un routeDriver asignado.");
-      return [];
+      return;
     }
 
     var routeDriverDoc = routeDriverSnapshot.docs.first;
     DocumentReference rideRef = routeDriverDoc.get('ride_ref');
 
-    print("✅ [DEBUG] routeDriver encontrado.");
-
-    // 📌 2️⃣ Obtener datos del ride
     DocumentSnapshot rideDoc = await rideRef.get();
     if (!rideDoc.exists) {
       print("⚠️ [WARNING] No se encontró el documento en ride.");
-      return [];
+      return;
     }
 
     DocumentReference routeRef = rideDoc.get('route_ref');
     DocumentReference schoolRef = rideDoc.get('school_ref');
 
-    print("✅ [DEBUG] Ride encontrado con referencias:");
-    print("   - RouteRef: $routeRef");
-    print("   - SchoolRef: $schoolRef");
-
-    // 📌 3️⃣ Obtener ubicación del route_ref (Inicio - Verde)
+    // 2️⃣ Obtener punto inicial
     ff.LatLng? routeLatLng;
     if (routeRef != null) {
       DocumentSnapshot routeDoc = await routeRef.get();
       if (routeDoc.exists) {
-        routeLatLng =
-            ff.LatLng(routeDoc.get('latitude'), routeDoc.get('longitude'));
+        routeLatLng = ff.LatLng(
+          routeDoc.get('latitude'),
+          routeDoc.get('longitude'),
+        );
         print("✅ [DEBUG] Punto inicial obtenido: $routeLatLng");
       }
     }
 
-    // 📌 4️⃣ Obtener ubicación del School (Destino - Rojo)
+    // 3️⃣ Obtener punto final (escuela)
     ff.LatLng? schoolLatLng;
     if (schoolRef != null) {
       DocumentSnapshot schoolDoc = await FirebaseFirestore.instance
@@ -70,92 +62,85 @@ Future<List<ff.LatLng>> fetchRideForDriver(String driverId) async {
           .get();
 
       if (schoolDoc.exists) {
-        schoolLatLng =
-            ff.LatLng(schoolDoc.get('latitude'), schoolDoc.get('longitude'));
+        schoolLatLng = ff.LatLng(
+          schoolDoc.get('latitude'),
+          schoolDoc.get('longitude'),
+        );
         print("✅ [DEBUG] Punto final obtenido: $schoolLatLng");
       }
     }
 
-    // 📌 5️⃣ Obtener todas las stops asociadas a la misma route_ref
+    // 4️⃣ Obtener paradas intermedias
     List<ff.LatLng> stopsLatLng = [];
     if (routeRef != null) {
       QuerySnapshot stopSnapshot = await FirebaseFirestore.instance
           .collection('stops')
-          .where('route_ref', isEqualTo: routeRef) // 🔥 Filtrar por route_ref
+          .where('route_ref', isEqualTo: routeRef)
           .get();
 
       for (var doc in stopSnapshot.docs) {
-        stopsLatLng.add(ff.LatLng(doc.get('latitude'), doc.get('longitude')));
+        stopsLatLng.add(
+          ff.LatLng(doc.get('latitude'), doc.get('longitude')),
+        );
       }
     }
+
     print("✅ [DEBUG] Paradas obtenidas: $stopsLatLng");
 
-    // **Crear la lista de puntos para el mapa**
-    List<Map<String, dynamic>> rideMarkers = [];
+    // 5️⃣ Construir lista con tipo
+    List<Map<String, dynamic>> rideMarkersInfo = [];
 
-// 📌 **PRIMERO: Ubicación de la parada de inicio**
-    if (routeLatLng != null && FFAppState().GoImagen != null) {
-      rideMarkers.add(
-          {'latLng': routeLatLng, 'icon': FFAppState().GoImagen.toString()});
+    if (routeLatLng != null) {
+      rideMarkersInfo.add({
+        "latLng": routeLatLng,
+        "tipo": "inicio",
+      });
     }
 
-// 📌 **SEGUNDO: Agregar todas las paradas**
     for (var stop in stopsLatLng) {
-      if (FFAppState().stopimagen != null) {
-        rideMarkers
-            .add({'latLng': stop, 'icon': FFAppState().stopimagen.toString()});
-      }
-    }
-
-// 📌 **TERCERO: Finalmente, agregar el destino final**
-    if (schoolLatLng != null && FFAppState().ScoolImagen != null) {
-      rideMarkers.add({
-        'latLng': schoolLatLng,
-        'icon': FFAppState().ScoolImagen.toString()
+      rideMarkersInfo.add({
+        "latLng": stop,
+        "tipo": "stop",
       });
     }
 
-    print("✅ [SUCCESS] Datos de la ruta obtenidos correctamente.");
+    if (schoolLatLng != null) {
+      rideMarkersInfo.add({
+        "latLng": schoolLatLng,
+        "tipo": "final",
+      });
+    }
 
-// 📌 6️⃣ **Actualizar en FlutterFlow**
-    print("🔄 [DEBUG] Actualizando FFAppState con las paradas...");
+    // 6️⃣ Actualizar el AppState global
     FFAppState().update(() {
+      // Lista con tipo para tooltips o texto
+      FFAppState().rideMarkersInfo = rideMarkersInfo;
+
+      // Solo las ubicaciones (para GoogleMap)
       FFAppState().rideMarkers =
-          rideMarkers.map((marker) => marker['latLng'] as ff.LatLng).toList();
+          rideMarkersInfo.map((e) => e["latLng"] as ff.LatLng).toList();
 
-      // Aseguramos que todos los íconos sean string válidos
-      FFAppState().markerColors = rideMarkers
-          .map((marker) => marker['icon']?.toString() ?? "")
-          .toList();
+      // Colores (List<Color>) para cada punto
+      FFAppState().markerColors = rideMarkersInfo.map((e) {
+        final tipo = e["tipo"];
+        if (tipo == "inicio") return Colors.green;
+        if (tipo == "final") return Colors.red;
+        return Colors.orange;
+      }).toList();
+
+      // Centro inicial del mapa
+      FFAppState().initialMapCenter = [
+        rideMarkersInfo.first["latLng"] as ff.LatLng
+      ];
+
+      // Polilínea de ruta
+      FFAppState().routePolyline =
+          rideMarkersInfo.map((e) => e["latLng"] as ff.LatLng).toList();
     });
 
-    // 📌 7️⃣ **Establecer la parada de inicio como la posición inicial del mapa**
-    if (rideMarkers.isNotEmpty) {
-      var firstLocation = rideMarkers.first['latLng'] as ff.LatLng;
-      FFAppState().update(() {
-        FFAppState().initialMapCenter = [firstLocation];
-      });
-      print(
-          "📌 [DEBUG] Estableciendo centro inicial del mapa en: ${FFAppState().initialMapCenter}");
-    }
-
-    // 📌 8️⃣ **Crear la línea de ruta**
-    List<ff.LatLng> polylinePoints = [];
-    if (routeLatLng != null) polylinePoints.add(routeLatLng);
-    polylinePoints.addAll(stopsLatLng);
-    if (schoolLatLng != null) polylinePoints.add(schoolLatLng);
-
-    FFAppState().update(() {
-      FFAppState().routePolyline = polylinePoints;
-    });
-
-    print("✅ [DEBUG] Línea de ruta creada con puntos: $polylinePoints");
-
-    // ✅ **Corrección: Devolver una lista de ff.LatLng**
-    return rideMarkers.map((marker) => marker['latLng'] as ff.LatLng).toList();
+    print("✅ [SUCCESS] rideMarkersInfo actualizado con tipos y colores.");
   } catch (e, stackTrace) {
     print("❌ [ERROR] Ocurrió un error en fetchRideForDriver: $e");
     print("🛠️ [DEBUG] StackTrace: $stackTrace");
-    return [];
   }
 }

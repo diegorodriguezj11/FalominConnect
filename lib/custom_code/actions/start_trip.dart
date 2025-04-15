@@ -8,24 +8,31 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import '/custom_code/actions/index.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:auto_bus/flutter_flow/lat_lng.dart' as ff;
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+import 'package:auto_bus/flutter_flow/lat_lng.dart' as ff;
 
 Future<void> startTrip(BuildContext context, String driverId) async {
   try {
     print("🚀 [DEBUG] Iniciando viaje para Driver: $driverId...");
 
-    // 📌 1️⃣ Verificar permisos de ubicación
-    bool hasPermission = await requestLocationPermission(context);
-    if (!hasPermission) {
-      print("❌ [ERROR] No se pudo obtener permiso de ubicación.");
+    // 1️⃣ Verificar permisos de ubicación
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        print("❌ [ERROR] Permiso de ubicación denegado por el usuario.");
+        return;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      print("⚠️ [ERROR] Permiso de ubicación denegado permanentemente.");
+      await Geolocator.openAppSettings();
       return;
     }
 
-    // 📌 2️⃣ Obtener la ubicación actual del conductor
+    // 2️⃣ Obtener ubicación actual
     Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
@@ -33,40 +40,36 @@ Future<void> startTrip(BuildContext context, String driverId) async {
         ff.LatLng(position.latitude, position.longitude);
     print("📍 [DEBUG] Ubicación actual del conductor: $driverCurrentLocation");
 
-    // 📌 3️⃣ Obtener los marcadores de rideMarkers desde FFAppState
+    // 3️⃣ Obtener rideMarkers
     List<ff.LatLng> rideMarkers = FFAppState().rideMarkers;
-
     if (rideMarkers.isEmpty) {
       print("⚠️ [WARNING] No hay marcadores en rideMarkers.");
       return;
     }
 
-    // 📌 4️⃣ Definir puntos de la ruta
-    ff.LatLng routeLatLng = rideMarkers.first; // Inicio (verde)
-    ff.LatLng schoolLatLng = rideMarkers.last; // Destino (rojo)
+    // 4️⃣ Definir puntos de ruta
+    ff.LatLng routeLatLng = rideMarkers.first;
+    ff.LatLng schoolLatLng = rideMarkers.last;
     List<ff.LatLng> stopsLatLng =
-        rideMarkers.sublist(1, rideMarkers.length - 1); // Paradas (naranja)
+        rideMarkers.sublist(1, rideMarkers.length - 1);
 
     print(
         "✅ [DEBUG] Inicio: $routeLatLng, Destino: $schoolLatLng, Stops: $stopsLatLng");
 
-    // 📌 5️⃣ Crear la línea amarilla de la ruta
+    // 5️⃣ Crear línea amarilla
     List<ff.LatLng> polylinePoints = [];
-    polylinePoints.add(
-        driverCurrentLocation); // Inicia en la ubicación actual del conductor
-    polylinePoints.add(routeLatLng); // Luego va al punto inicial de la ruta
-    polylinePoints
-        .addAll(stopsLatLng); // Pasa por todas las paradas intermedias
-    polylinePoints.add(schoolLatLng); // Termina en el destino final
+    polylinePoints.add(driverCurrentLocation);
+    polylinePoints.add(routeLatLng);
+    polylinePoints.addAll(stopsLatLng);
+    polylinePoints.add(schoolLatLng);
 
     FFAppState().update(() {
       FFAppState().routePolyline = polylinePoints;
-      FFAppState().routeColor = "yellow"; // Línea amarilla
+      FFAppState().routeColor = [Color(0xFFE7AD09)];
     });
-
     print("✅ [DEBUG] Línea de ruta amarilla creada: $polylinePoints");
 
-    // 📌 6️⃣ Simular el movimiento del conductor en tiempo real
+    // 6️⃣ Simular movimiento en tiempo real
     DocumentReference driverRef =
         FirebaseFirestore.instance.collection('users').doc(driverId);
 
@@ -77,11 +80,48 @@ Future<void> startTrip(BuildContext context, String driverId) async {
       });
       print(
           "📌 [DEBUG] Conductor en: ${location.latitude}, ${location.longitude}");
-      await Future.delayed(
-          Duration(seconds: 3)); // Simula movimiento en tiempo real
+      await Future.delayed(Duration(seconds: 3));
     }
 
-    print("✅ [SUCCESS] Viaje completado.");
+    // 7️⃣ Al finalizar el viaje: guardar en Trips, borrar en RouteDriver y actualizar usuario
+    print("📦 [DEBUG] Iniciando registro del viaje...");
+
+    final userDoc = await driverRef.get();
+    final driverData = userDoc.data() as Map<String, dynamic>?;
+
+    if (driverData == null) {
+      print("❌ [ERROR] No se encontró el usuario driver.");
+      return;
+    }
+
+    final routeNumber = driverData['numberRoute'] ?? 'N/A';
+    final driverName = driverData['display_name'] ?? 'Conductor';
+    final school = driverData['school'] ?? 'Escuela';
+
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+    await FirebaseFirestore.instance.collection('Trips').add({
+      'title': today,
+      'NumberRoute': routeNumber,
+      'Driver': driverName,
+      'School': school,
+      'iduser': driverRef,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
+    print("✅ [SUCCESS] Viaje guardado en Trips.");
+
+    // Eliminar documento de RouteDriver
+    await FirebaseFirestore.instance
+        .collection('RouteDriver')
+        .doc(driverId)
+        .delete();
+    print("🗑️ [SUCCESS] Documento de RouteDriver eliminado.");
+
+    // Actualizar el campo route del driver
+    await driverRef.update({'route': false});
+    print("🔄 [SUCCESS] Campo 'route' actualizado a false para el driver.");
+
+    print("🎉 [COMPLETADO] Proceso de viaje finalizado correctamente.");
   } catch (e, stackTrace) {
     print("❌ [ERROR] Ocurrió un error en startTrip: $e");
     print("🛠️ [DEBUG] StackTrace: $stackTrace");

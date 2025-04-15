@@ -75,6 +75,56 @@ class UsersRecord extends FirestoreRecord {
   String get title => _title ?? '';
   bool hasTitle() => _title != null;
 
+  // "LicenseNumberDriver" field.
+  int? _licenseNumberDriver;
+  int get licenseNumberDriver => _licenseNumberDriver ?? 0;
+  bool hasLicenseNumberDriver() => _licenseNumberDriver != null;
+
+  // "PhoneDriver" field.
+  int? _phoneDriver;
+  int get phoneDriver => _phoneDriver ?? 0;
+  bool hasPhoneDriver() => _phoneDriver != null;
+
+  // "EmergencyPhoneDriver" field.
+  int? _emergencyPhoneDriver;
+  int get emergencyPhoneDriver => _emergencyPhoneDriver ?? 0;
+  bool hasEmergencyPhoneDriver() => _emergencyPhoneDriver != null;
+
+  // "certificationsDrivers" field.
+  String? _certificationsDrivers;
+  String get certificationsDrivers => _certificationsDrivers ?? '';
+  bool hasCertificationsDrivers() => _certificationsDrivers != null;
+
+  // "RouteNumberDriver" field.
+  int? _routeNumberDriver;
+  int get routeNumberDriver => _routeNumberDriver ?? 0;
+  bool hasRouteNumberDriver() => _routeNumberDriver != null;
+
+  // "NumberBusDriver" field.
+  String? _numberBusDriver;
+  String get numberBusDriver => _numberBusDriver ?? '';
+  bool hasNumberBusDriver() => _numberBusDriver != null;
+
+  // "ScheduleDriver" field.
+  String? _scheduleDriver;
+  String get scheduleDriver => _scheduleDriver ?? '';
+  bool hasScheduleDriver() => _scheduleDriver != null;
+
+  // "ServiceAreaDriver" field.
+  String? _serviceAreaDriver;
+  String get serviceAreaDriver => _serviceAreaDriver ?? '';
+  bool hasServiceAreaDriver() => _serviceAreaDriver != null;
+
+  // "ExperienceDriver" field.
+  String? _experienceDriver;
+  String get experienceDriver => _experienceDriver ?? '';
+  bool hasExperienceDriver() => _experienceDriver != null;
+
+  // "route" field.
+  bool? _route;
+  bool get route => _route ?? false;
+  bool hasRoute() => _route != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -88,6 +138,17 @@ class UsersRecord extends FirestoreRecord {
     _shortDescription = snapshotData['shortDescription'] as String?;
     _lastActiveTime = snapshotData['last_active_time'] as DateTime?;
     _title = snapshotData['title'] as String?;
+    _licenseNumberDriver = castToType<int>(snapshotData['LicenseNumberDriver']);
+    _phoneDriver = castToType<int>(snapshotData['PhoneDriver']);
+    _emergencyPhoneDriver =
+        castToType<int>(snapshotData['EmergencyPhoneDriver']);
+    _certificationsDrivers = snapshotData['certificationsDrivers'] as String?;
+    _routeNumberDriver = castToType<int>(snapshotData['RouteNumberDriver']);
+    _numberBusDriver = snapshotData['NumberBusDriver'] as String?;
+    _scheduleDriver = snapshotData['ScheduleDriver'] as String?;
+    _serviceAreaDriver = snapshotData['ServiceAreaDriver'] as String?;
+    _experienceDriver = snapshotData['ExperienceDriver'] as String?;
+    _route = snapshotData['route'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -136,6 +197,16 @@ Map<String, dynamic> createUsersRecordData({
   String? shortDescription,
   DateTime? lastActiveTime,
   String? title,
+  int? licenseNumberDriver,
+  int? phoneDriver,
+  int? emergencyPhoneDriver,
+  String? certificationsDrivers,
+  int? routeNumberDriver,
+  String? numberBusDriver,
+  String? scheduleDriver,
+  String? serviceAreaDriver,
+  String? experienceDriver,
+  bool? route,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -151,6 +222,16 @@ Map<String, dynamic> createUsersRecordData({
       'shortDescription': shortDescription,
       'last_active_time': lastActiveTime,
       'title': title,
+      'LicenseNumberDriver': licenseNumberDriver,
+      'PhoneDriver': phoneDriver,
+      'EmergencyPhoneDriver': emergencyPhoneDriver,
+      'certificationsDrivers': certificationsDrivers,
+      'RouteNumberDriver': routeNumberDriver,
+      'NumberBusDriver': numberBusDriver,
+      'ScheduleDriver': scheduleDriver,
+      'ServiceAreaDriver': serviceAreaDriver,
+      'ExperienceDriver': experienceDriver,
+      'route': route,
     }.withoutNulls,
   );
 
@@ -173,7 +254,17 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.role == e2?.role &&
         e1?.shortDescription == e2?.shortDescription &&
         e1?.lastActiveTime == e2?.lastActiveTime &&
-        e1?.title == e2?.title;
+        e1?.title == e2?.title &&
+        e1?.licenseNumberDriver == e2?.licenseNumberDriver &&
+        e1?.phoneDriver == e2?.phoneDriver &&
+        e1?.emergencyPhoneDriver == e2?.emergencyPhoneDriver &&
+        e1?.certificationsDrivers == e2?.certificationsDrivers &&
+        e1?.routeNumberDriver == e2?.routeNumberDriver &&
+        e1?.numberBusDriver == e2?.numberBusDriver &&
+        e1?.scheduleDriver == e2?.scheduleDriver &&
+        e1?.serviceAreaDriver == e2?.serviceAreaDriver &&
+        e1?.experienceDriver == e2?.experienceDriver &&
+        e1?.route == e2?.route;
   }
 
   @override
@@ -189,7 +280,17 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.role,
         e?.shortDescription,
         e?.lastActiveTime,
-        e?.title
+        e?.title,
+        e?.licenseNumberDriver,
+        e?.phoneDriver,
+        e?.emergencyPhoneDriver,
+        e?.certificationsDrivers,
+        e?.routeNumberDriver,
+        e?.numberBusDriver,
+        e?.scheduleDriver,
+        e?.serviceAreaDriver,
+        e?.experienceDriver,
+        e?.route
       ]);
 
   @override

@@ -200,35 +200,6 @@ class FFAppState extends ChangeNotifier {
     routePolyline.insert(index, value);
   }
 
-  List<String> _markerColors = [];
-  List<String> get markerColors => _markerColors;
-  set markerColors(List<String> value) {
-    _markerColors = value;
-  }
-
-  void addToMarkerColors(String value) {
-    markerColors.add(value);
-  }
-
-  void removeFromMarkerColors(String value) {
-    markerColors.remove(value);
-  }
-
-  void removeAtIndexFromMarkerColors(int index) {
-    markerColors.removeAt(index);
-  }
-
-  void updateMarkerColorsAtIndex(
-    int index,
-    String Function(String) updateFn,
-  ) {
-    markerColors[index] = updateFn(_markerColors[index]);
-  }
-
-  void insertAtIndexInMarkerColors(int index, String value) {
-    markerColors.insert(index, value);
-  }
-
   LatLng? _currentDriverLocation;
   LatLng? get currentDriverLocation => _currentDriverLocation;
   set currentDriverLocation(LatLng? value) {
@@ -239,12 +210,6 @@ class FFAppState extends ChangeNotifier {
   LatLng? get driverLocation => _driverLocation;
   set driverLocation(LatLng? value) {
     _driverLocation = value;
-  }
-
-  String _routeColor = 'yellow';
-  String get routeColor => _routeColor;
-  set routeColor(String value) {
-    _routeColor = value;
   }
 
   String _stopimagen =
@@ -278,6 +243,93 @@ class FFAppState extends ChangeNotifier {
     _BusImagen = value;
   }
 
+  List<dynamic> _rideMarkersInfo = [];
+  List<dynamic> get rideMarkersInfo => _rideMarkersInfo;
+  set rideMarkersInfo(List<dynamic> value) {
+    _rideMarkersInfo = value;
+  }
+
+  void addToRideMarkersInfo(dynamic value) {
+    rideMarkersInfo.add(value);
+  }
+
+  void removeFromRideMarkersInfo(dynamic value) {
+    rideMarkersInfo.remove(value);
+  }
+
+  void removeAtIndexFromRideMarkersInfo(int index) {
+    rideMarkersInfo.removeAt(index);
+  }
+
+  void updateRideMarkersInfoAtIndex(
+    int index,
+    dynamic Function(dynamic) updateFn,
+  ) {
+    rideMarkersInfo[index] = updateFn(_rideMarkersInfo[index]);
+  }
+
+  void insertAtIndexInRideMarkersInfo(int index, dynamic value) {
+    rideMarkersInfo.insert(index, value);
+  }
+
+  List<Color> _markerColors = [];
+  List<Color> get markerColors => _markerColors;
+  set markerColors(List<Color> value) {
+    _markerColors = value;
+  }
+
+  void addToMarkerColors(Color value) {
+    markerColors.add(value);
+  }
+
+  void removeFromMarkerColors(Color value) {
+    markerColors.remove(value);
+  }
+
+  void removeAtIndexFromMarkerColors(int index) {
+    markerColors.removeAt(index);
+  }
+
+  void updateMarkerColorsAtIndex(
+    int index,
+    Color Function(Color) updateFn,
+  ) {
+    markerColors[index] = updateFn(_markerColors[index]);
+  }
+
+  void insertAtIndexInMarkerColors(int index, Color value) {
+    markerColors.insert(index, value);
+  }
+
+  List<Color> _routeColor = [];
+  List<Color> get routeColor => _routeColor;
+  set routeColor(List<Color> value) {
+    _routeColor = value;
+  }
+
+  void addToRouteColor(Color value) {
+    routeColor.add(value);
+  }
+
+  void removeFromRouteColor(Color value) {
+    routeColor.remove(value);
+  }
+
+  void removeAtIndexFromRouteColor(int index) {
+    routeColor.removeAt(index);
+  }
+
+  void updateRouteColorAtIndex(
+    int index,
+    Color Function(Color) updateFn,
+  ) {
+    routeColor[index] = updateFn(_routeColor[index]);
+  }
+
+  void insertAtIndexInRouteColor(int index, Color value) {
+    routeColor.insert(index, value);
+  }
+
   final _userDocQueryManager = FutureRequestManager<UsersRecord>();
   Future<UsersRecord> userDocQuery({
     String? uniqueQueryKey,
@@ -304,4 +356,11 @@ Future _safeInitAsync(Function() initializeField) async {
   try {
     await initializeField();
   } catch (_) {}
+}
+
+Color? _colorFromIntValue(int? val) {
+  if (val == null) {
+    return null;
+  }
+  return Color(val);
 }

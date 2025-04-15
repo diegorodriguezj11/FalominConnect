@@ -1,26 +1,28 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/index.dart';
 import 'edit_driver_widget.dart' show EditDriverWidget;
 import 'package:flutter/material.dart';
 
 class EditDriverModel extends FlutterFlowModel<EditDriverWidget> {
   ///  State fields for stateful widgets in this page.
 
-  bool isDataUploading1 = false;
-  FFUploadedFile uploadedLocalFile1 =
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
 
   // State field(s) for txtName widget.
   FocusNode? txtNameFocusNode1;
   TextEditingController? txtNameTextController1;
   String? Function(BuildContext, String?)? txtNameTextController1Validator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
   // State field(s) for txtName widget.
   FocusNode? txtNameFocusNode2;
   TextEditingController? txtNameTextController2;
   String? Function(BuildContext, String?)? txtNameTextController2Validator;
+  // State field(s) for DropDownExperience widget.
+  String? dropDownExperienceValue;
+  FormFieldController<String>? dropDownExperienceValueController;
   // State field(s) for txtName widget.
   FocusNode? txtNameFocusNode3;
   TextEditingController? txtNameTextController3;
@@ -53,14 +55,6 @@ class EditDriverModel extends FlutterFlowModel<EditDriverWidget> {
   FocusNode? txtNameFocusNode10;
   TextEditingController? txtNameTextController10;
   String? Function(BuildContext, String?)? txtNameTextController10Validator;
-  // State field(s) for txtName widget.
-  FocusNode? txtNameFocusNode11;
-  TextEditingController? txtNameTextController11;
-  String? Function(BuildContext, String?)? txtNameTextController11Validator;
-  bool isDataUploading2 = false;
-  FFUploadedFile uploadedLocalFile2 =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl2 = '';
 
   @override
   void initState(BuildContext context) {}
@@ -96,8 +90,5 @@ class EditDriverModel extends FlutterFlowModel<EditDriverWidget> {
 
     txtNameFocusNode10?.dispose();
     txtNameTextController10?.dispose();
-
-    txtNameFocusNode11?.dispose();
-    txtNameTextController11?.dispose();
   }
 }

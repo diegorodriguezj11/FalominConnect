@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 class MapDriverModel extends FlutterFlowModel<MapDriverWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Custom Action - fetchRideForDriver] action in MapDriver widget.
-  List<LatLng>? rideMarkers;
   // State field(s) for GoogleMap widget.
   LatLng? googleMapsCenter;
   final googleMapsController = Completer<GoogleMapController>();

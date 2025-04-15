@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/components/accesslocation_widget.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -33,9 +34,10 @@ class _MapDriverWidgetState extends State<MapDriverWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.rideMarkers = await actions.fetchRideForDriver(
-        currentUserReference!.id,
+      await actions.fetchRideForDriver(
+        currentUserReference!,
       );
+      await actions.actualizarColoresDeMarcadores();
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -118,6 +120,12 @@ class _MapDriverWidgetState extends State<MapDriverWidget> {
                       )
                       .toList(),
                   markerColor: GoogleMarkerColor.cyan,
+                  markerImage: MarkerImage(
+                    imagePath:
+                        FFAppState().rideMarkersInfo.firstOrNull!.toString(),
+                    isAssetImage: false,
+                    size: 10.0 ?? 20,
+                  ),
                   mapType: MapType.normal,
                   style: GoogleMapStyle.standard,
                   initialZoom: 13.0,
@@ -137,9 +145,25 @@ class _MapDriverWidgetState extends State<MapDriverWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      await actions.requestLocationPermission(
-                        context,
-                      );
+                      await showModalBottomSheet(
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        enableDrag: false,
+                        context: context,
+                        builder: (context) {
+                          return GestureDetector(
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              FocusManager.instance.primaryFocus?.unfocus();
+                            },
+                            child: Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: AccesslocationWidget(),
+                            ),
+                          );
+                        },
+                      ).then((value) => safeSetState(() {}));
+
                       await actions.startTrip(
                         context,
                         currentUserReference!.id,

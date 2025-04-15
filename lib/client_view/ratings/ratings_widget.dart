@@ -289,6 +289,7 @@ class _RatingsWidgetState extends State<RatingsWidget> {
                             iduser: currentUserReference,
                             emailUser: currentUserEmail,
                             photoUser: currentUserPhoto,
+                            date: getCurrentTimestamp,
                           ));
                       await showDialog(
                         context: context,

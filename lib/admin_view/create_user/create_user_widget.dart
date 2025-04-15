@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'create_user_model.dart';
 export 'create_user_model.dart';
@@ -570,6 +571,12 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                         return;
                       }
 
+                      await UsersRecord.collection
+                          .doc(user.uid)
+                          .update(createUsersRecordData(
+                            route: false,
+                          ));
+
                       await currentUserReference!.update(createUsersRecordData(
                         displayName: _model.textFieldNameTextController.text,
                       ));
@@ -589,9 +596,12 @@ class _CreateUserWidgetState extends State<CreateUserWidget> {
                           backgroundColor: Color(0xFF5AD239),
                         ),
                       );
+                      GoRouter.of(context).prepareAuthEvent();
+                      await authManager.signOut();
+                      GoRouter.of(context).clearRedirectLocation();
 
-                      context.pushNamedAuth(
-                          CreateUserWidget.routeName, context.mounted);
+                      context.goNamedAuth(
+                          Auth2Widget.routeName, context.mounted);
                     },
                     text: 'Create User',
                     options: FFButtonOptions(

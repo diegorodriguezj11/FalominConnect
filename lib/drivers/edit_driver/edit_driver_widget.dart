@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -7,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'edit_driver_model.dart';
 export 'edit_driver_model.dart';
@@ -14,34 +16,32 @@ export 'edit_driver_model.dart';
 class EditDriverWidget extends StatefulWidget {
   const EditDriverWidget({
     super.key,
-    required this.name,
-    required this.school,
-    required this.licenseNumber,
-    required this.experience,
-    required this.phione,
-    required this.email,
-    required this.emergencyPhone,
-    required this.certifications,
-    required this.routeNumber,
-    required this.serviceArea,
-    required this.schedule,
-    required this.photo,
-    required this.numberBus,
+    this.name,
+    this.licenseNumber,
+    this.experience,
+    this.phione,
+    this.email,
+    this.emergencyPhone,
+    this.certifications,
+    this.routeNumber,
+    this.serviceArea,
+    this.schedule,
+    this.photo,
+    this.numberBus,
   });
 
-  final DriverRecord? name;
-  final DriverRecord? school;
-  final DriverRecord? licenseNumber;
-  final DriverRecord? experience;
-  final DriverRecord? phione;
-  final DriverRecord? email;
-  final DriverRecord? emergencyPhone;
-  final DriverRecord? certifications;
-  final DriverRecord? routeNumber;
-  final DriverRecord? serviceArea;
-  final DriverRecord? schedule;
-  final DriverRecord? photo;
-  final DriverRecord? numberBus;
+  final UsersRecord? name;
+  final UsersRecord? licenseNumber;
+  final UsersRecord? experience;
+  final UsersRecord? phione;
+  final UsersRecord? email;
+  final UsersRecord? emergencyPhone;
+  final UsersRecord? certifications;
+  final UsersRecord? routeNumber;
+  final UsersRecord? serviceArea;
+  final UsersRecord? schedule;
+  final UsersRecord? photo;
+  final UsersRecord? numberBus;
 
   static String routeName = 'EditDriver';
   static String routePath = '/editDriver';
@@ -60,38 +60,45 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
     super.initState();
     _model = createModel(context, () => EditDriverModel());
 
-    _model.txtNameTextController1 ??= TextEditingController();
+    _model.txtNameTextController1 ??=
+        TextEditingController(text: widget.name?.displayName);
     _model.txtNameFocusNode1 ??= FocusNode();
 
-    _model.txtNameTextController2 ??= TextEditingController();
+    _model.txtNameTextController2 ??= TextEditingController(
+        text: widget.licenseNumber?.licenseNumberDriver.toString());
     _model.txtNameFocusNode2 ??= FocusNode();
 
-    _model.txtNameTextController3 ??= TextEditingController();
+    _model.txtNameTextController3 ??=
+        TextEditingController(text: widget.numberBus?.numberBusDriver);
     _model.txtNameFocusNode3 ??= FocusNode();
 
-    _model.txtNameTextController4 ??= TextEditingController();
+    _model.txtNameTextController4 ??=
+        TextEditingController(text: widget.phione?.phoneDriver.toString());
     _model.txtNameFocusNode4 ??= FocusNode();
 
-    _model.txtNameTextController5 ??= TextEditingController();
+    _model.txtNameTextController5 ??=
+        TextEditingController(text: widget.email?.email);
     _model.txtNameFocusNode5 ??= FocusNode();
 
-    _model.txtNameTextController6 ??= TextEditingController();
+    _model.txtNameTextController6 ??= TextEditingController(
+        text: widget.emergencyPhone?.emergencyPhoneDriver.toString());
     _model.txtNameFocusNode6 ??= FocusNode();
 
-    _model.txtNameTextController7 ??= TextEditingController();
+    _model.txtNameTextController7 ??= TextEditingController(
+        text: widget.certifications?.certificationsDrivers);
     _model.txtNameFocusNode7 ??= FocusNode();
 
-    _model.txtNameTextController8 ??= TextEditingController();
+    _model.txtNameTextController8 ??= TextEditingController(
+        text: widget.routeNumber?.routeNumberDriver.toString());
     _model.txtNameFocusNode8 ??= FocusNode();
 
-    _model.txtNameTextController9 ??= TextEditingController();
+    _model.txtNameTextController9 ??=
+        TextEditingController(text: widget.serviceArea?.serviceAreaDriver);
     _model.txtNameFocusNode9 ??= FocusNode();
 
-    _model.txtNameTextController10 ??= TextEditingController();
+    _model.txtNameTextController10 ??=
+        TextEditingController(text: widget.schedule?.scheduleDriver);
     _model.txtNameFocusNode10 ??= FocusNode();
-
-    _model.txtNameTextController11 ??= TextEditingController();
-    _model.txtNameFocusNode11 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -197,111 +204,115 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            if ((_model.uploadedLocalFile1.bytes
-                                                        ?.isEmpty ??
-                                                    true))
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    final selectedMedia =
-                                                        await selectMedia(
-                                                      mediaSource: MediaSource
-                                                          .photoGallery,
-                                                      multiImage: false,
-                                                    );
-                                                    if (selectedMedia != null &&
-                                                        selectedMedia.every((m) =>
-                                                            validateFileFormat(
-                                                                m.storagePath,
-                                                                context))) {
-                                                      safeSetState(() => _model
-                                                              .isDataUploading1 =
-                                                          true);
-                                                      var selectedUploadedFiles =
-                                                          <FFUploadedFile>[];
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  final selectedMedia =
+                                                      await selectMediaWithSourceBottomSheet(
+                                                    context: context,
+                                                    allowPhoto: true,
+                                                  );
+                                                  if (selectedMedia != null &&
+                                                      selectedMedia.every((m) =>
+                                                          validateFileFormat(
+                                                              m.storagePath,
+                                                              context))) {
+                                                    safeSetState(() =>
+                                                        _model.isDataUploading =
+                                                            true);
+                                                    var selectedUploadedFiles =
+                                                        <FFUploadedFile>[];
 
-                                                      try {
-                                                        selectedUploadedFiles =
-                                                            selectedMedia
-                                                                .map((m) =>
-                                                                    FFUploadedFile(
-                                                                      name: m
-                                                                          .storagePath
-                                                                          .split(
-                                                                              '/')
-                                                                          .last,
-                                                                      bytes: m
-                                                                          .bytes,
-                                                                      height: m
-                                                                          .dimensions
-                                                                          ?.height,
-                                                                      width: m
-                                                                          .dimensions
-                                                                          ?.width,
-                                                                      blurHash:
-                                                                          m.blurHash,
-                                                                    ))
-                                                                .toList();
-                                                      } finally {
-                                                        _model.isDataUploading1 =
-                                                            false;
-                                                      }
-                                                      if (selectedUploadedFiles
-                                                              .length ==
+                                                    var downloadUrls =
+                                                        <String>[];
+                                                    try {
+                                                      selectedUploadedFiles =
                                                           selectedMedia
-                                                              .length) {
-                                                        safeSetState(() {
-                                                          _model.uploadedLocalFile1 =
-                                                              selectedUploadedFiles
-                                                                  .first;
-                                                        });
-                                                      } else {
-                                                        safeSetState(() {});
-                                                        return;
-                                                      }
+                                                              .map((m) =>
+                                                                  FFUploadedFile(
+                                                                    name: m
+                                                                        .storagePath
+                                                                        .split(
+                                                                            '/')
+                                                                        .last,
+                                                                    bytes:
+                                                                        m.bytes,
+                                                                    height: m
+                                                                        .dimensions
+                                                                        ?.height,
+                                                                    width: m
+                                                                        .dimensions
+                                                                        ?.width,
+                                                                    blurHash: m
+                                                                        .blurHash,
+                                                                  ))
+                                                              .toList();
+
+                                                      downloadUrls =
+                                                          (await Future.wait(
+                                                        selectedMedia.map(
+                                                          (m) async =>
+                                                              await uploadData(
+                                                                  m.storagePath,
+                                                                  m.bytes),
+                                                        ),
+                                                      ))
+                                                              .where((u) =>
+                                                                  u != null)
+                                                              .map((u) => u!)
+                                                              .toList();
+                                                    } finally {
+                                                      _model.isDataUploading =
+                                                          false;
                                                     }
-                                                  },
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            70.0),
-                                                    child: Image.network(
-                                                      valueOrDefault<String>(
-                                                        widget.phione?.photo,
-                                                        'Photo',
-                                                      ),
-                                                      width: 131.2,
-                                                      height: 143.41,
-                                                      fit: BoxFit.cover,
+                                                    if (selectedUploadedFiles
+                                                                .length ==
+                                                            selectedMedia
+                                                                .length &&
+                                                        downloadUrls.length ==
+                                                            selectedMedia
+                                                                .length) {
+                                                      safeSetState(() {
+                                                        _model.uploadedLocalFile =
+                                                            selectedUploadedFiles
+                                                                .first;
+                                                        _model.uploadedFileUrl =
+                                                            downloadUrls.first;
+                                                      });
+                                                    } else {
+                                                      safeSetState(() {});
+                                                      return;
+                                                    }
+                                                  }
+                                                },
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          70.0),
+                                                  child: Image.network(
+                                                    valueOrDefault<String>(
+                                                      _model.uploadedFileUrl !=
+                                                                  ''
+                                                          ? _model
+                                                              .uploadedFileUrl
+                                                          : widget
+                                                              .photo?.photoUrl,
+                                                      'https://firebasestorage.googleapis.com/v0/b/tienda-f7723.appspot.com/o/users%2Fsin%20imagen.jpg?alt=media&token=2a136a98-5796-4269-8cd8-563e5d65b59e',
                                                     ),
+                                                    width: 131.2,
+                                                    height: 143.41,
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
                                               ),
-                                            if ((_model.uploadedLocalFile1.bytes
-                                                        ?.isNotEmpty ??
-                                                    false))
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(70.0),
-                                                child: Image.memory(
-                                                  _model.uploadedLocalFile1
-                                                          .bytes ??
-                                                      Uint8List.fromList([]),
-                                                  width: 131.2,
-                                                  height: 143.4,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -338,10 +349,7 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                           autofocus: true,
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            labelText: valueOrDefault<String>(
-                                              widget.name?.name,
-                                              'Name',
-                                            ),
+                                            labelText: 'Name',
                                             labelStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -354,6 +362,7 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),
+                                            hintText: widget.name?.displayName,
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -421,94 +430,6 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                               .txtNameTextController1Validator
                                               .asValidator(context),
                                         ),
-                                      ),
-                                      Text(
-                                        'School ',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                      StreamBuilder<List<SchoolRecord>>(
-                                        stream: querySchoolRecord(),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          List<SchoolRecord>
-                                              dropDownSchoolRecordList =
-                                              snapshot.data!;
-
-                                          return FlutterFlowDropDown<String>(
-                                            controller: _model
-                                                    .dropDownValueController ??=
-                                                FormFieldController<String>(
-                                              _model.dropDownValue ??= '',
-                                            ),
-                                            options: List<String>.from(
-                                                dropDownSchoolRecordList
-                                                    .map((e) => e.reference.id)
-                                                    .toList()),
-                                            optionLabels:
-                                                dropDownSchoolRecordList
-                                                    .map((e) => e.schoolName)
-                                                    .toList(),
-                                            onChanged: (val) => safeSetState(
-                                                () =>
-                                                    _model.dropDownValue = val),
-                                            width: 300.0,
-                                            height: 56.0,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Inter',
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            hintText: widget.school?.school,
-                                            icon: Icon(
-                                              Icons.keyboard_arrow_down_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 24.0,
-                                            ),
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            elevation: 2.0,
-                                            borderColor: Colors.transparent,
-                                            borderWidth: 0.0,
-                                            borderRadius: 8.0,
-                                            margin:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    12.0, 0.0, 12.0, 0.0),
-                                            hidesUnderline: true,
-                                            isOverButton: false,
-                                            isSearchable: false,
-                                            isMultiSelect: false,
-                                          );
-                                        },
                                       ),
                                     ].divide(SizedBox(height: 4.0)),
                                   ),
@@ -592,12 +513,7 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                       decoration:
                                                           InputDecoration(
                                                         labelText:
-                                                            valueOrDefault<
-                                                                String>(
-                                                          widget.licenseNumber
-                                                              ?.licenseNumber,
-                                                          'License Number',
-                                                        ),
+                                                            'Licence Number',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -615,6 +531,10 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                                       FontWeight
                                                                           .w500,
                                                                 ),
+                                                        hintText: widget
+                                                            .licenseNumber
+                                                            ?.licenseNumberDriver
+                                                            .toString(),
                                                         hintStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -746,6 +666,95 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                 ),
                                                 Container(
                                                   width: 200.0,
+                                                  child: FlutterFlowDropDown<
+                                                      String>(
+                                                    controller: _model
+                                                            .dropDownExperienceValueController ??=
+                                                        FormFieldController<
+                                                            String>(
+                                                      _model.dropDownExperienceValue ??=
+                                                          widget.experience
+                                                              ?.experienceDriver,
+                                                    ),
+                                                    options: [
+                                                      ' 1',
+                                                      '2',
+                                                      '3',
+                                                      '4',
+                                                      '5 +'
+                                                    ],
+                                                    onChanged: (val) =>
+                                                        safeSetState(() => _model
+                                                                .dropDownExperienceValue =
+                                                            val),
+                                                    width: 0.08,
+                                                    height: 46.6,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                    hintText: widget.experience
+                                                        ?.experienceDriver,
+                                                    icon: Icon(
+                                                      Icons
+                                                          .keyboard_arrow_down_rounded,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      size: 24.0,
+                                                    ),
+                                                    fillColor: FlutterFlowTheme
+                                                            .of(context)
+                                                        .secondaryBackground,
+                                                    elevation: 2.0,
+                                                    borderColor:
+                                                        Colors.transparent,
+                                                    borderWidth: 0.0,
+                                                    borderRadius: 8.0,
+                                                    margin:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                12.0, 0.0),
+                                                    hidesUnderline: true,
+                                                    isOverButton: false,
+                                                    isSearchable: false,
+                                                    isMultiSelect: false,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Number Bus',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                                Container(
+                                                  width: 200.0,
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -763,13 +772,7 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                       obscureText: false,
                                                       decoration:
                                                           InputDecoration(
-                                                        labelText:
-                                                            valueOrDefault<
-                                                                String>(
-                                                          widget.experience
-                                                              ?.experience,
-                                                          'Experience',
-                                                        ),
+                                                        labelText: 'Number Bus',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -787,6 +790,9 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                                       FontWeight
                                                                           .w500,
                                                                 ),
+                                                        hintText: widget
+                                                            .numberBus
+                                                            ?.numberBusDriver,
                                                         hintStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -892,178 +898,6 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Number Bus',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                                ),
-                                                Container(
-                                                  width: 200.0,
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                16.0,
-                                                                16.0,
-                                                                16.0,
-                                                                0.0),
-                                                    child: TextFormField(
-                                                      controller: _model
-                                                          .txtNameTextController4,
-                                                      focusNode: _model
-                                                          .txtNameFocusNode4,
-                                                      autofocus: true,
-                                                      obscureText: false,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        labelText:
-                                                            valueOrDefault<
-                                                                String>(
-                                                          widget.numberBus
-                                                              ?.numberBus,
-                                                          'Number Bus',
-                                                        ),
-                                                        labelStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Plus Jakarta Sans',
-                                                                  color: Color(
-                                                                      0xFF606A85),
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                        hintStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Plus Jakarta Sans',
-                                                                  color: Color(
-                                                                      0xFF606A85),
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0xFFE5E7EB),
-                                                            width: 2.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      12.0),
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .tertiary,
-                                                            width: 2.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      12.0),
-                                                        ),
-                                                        errorBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0xFFFF5963),
-                                                            width: 2.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      12.0),
-                                                        ),
-                                                        focusedErrorBorder:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                            color: Color(
-                                                                0xFFFF5963),
-                                                            width: 2.0,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      12.0),
-                                                        ),
-                                                        filled: true,
-                                                        fillColor: Colors.white,
-                                                        contentPadding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    20.0,
-                                                                    24.0,
-                                                                    20.0,
-                                                                    24.0),
-                                                      ),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                'Plus Jakarta Sans',
-                                                            color: Color(
-                                                                0xFF15161E),
-                                                            fontSize: 14.0,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                      cursorColor:
-                                                          Color(0xFF6F61EF),
-                                                      validator: _model
-                                                          .txtNameTextController4Validator
-                                                          .asValidator(context),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
                                       ].divide(SizedBox(height: 16.0)),
                                     ),
                                   ),
@@ -1115,17 +949,13 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                         16.0, 16.0, 16.0, 0.0),
                                                 child: TextFormField(
                                                   controller: _model
-                                                      .txtNameTextController5,
+                                                      .txtNameTextController4,
                                                   focusNode:
-                                                      _model.txtNameFocusNode5,
+                                                      _model.txtNameFocusNode4,
                                                   autofocus: true,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
-                                                    labelText:
-                                                        valueOrDefault<String>(
-                                                      widget.phione?.phone,
-                                                      'Phone',
-                                                    ),
+                                                    labelText: 'Phone',
                                                     labelStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelMedium
@@ -1139,6 +969,138 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
+                                                    hintText: widget
+                                                        .phione?.phoneDriver
+                                                        .toString(),
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          color:
+                                                              Color(0xFF606A85),
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xFFE5E7EB),
+                                                        width: 2.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tertiary,
+                                                        width: 2.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                    errorBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xFFFF5963),
+                                                        width: 2.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                    focusedErrorBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xFFFF5963),
+                                                        width: 2.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor: Colors.white,
+                                                    contentPadding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                20.0,
+                                                                24.0,
+                                                                20.0,
+                                                                24.0),
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color:
+                                                            Color(0xFF15161E),
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                  cursorColor:
+                                                      Color(0xFF6F61EF),
+                                                  validator: _model
+                                                      .txtNameTextController4Validator
+                                                      .asValidator(context),
+                                                ),
+                                              ),
+                                            ),
+                                          ].divide(SizedBox(width: 12.0)),
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Icon(
+                                              Icons.email,
+                                              color: Color(0xFF1B374C),
+                                              size: 24.0,
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        16.0, 16.0, 16.0, 0.0),
+                                                child: TextFormField(
+                                                  controller: _model
+                                                      .txtNameTextController5,
+                                                  focusNode:
+                                                      _model.txtNameFocusNode5,
+                                                  autofocus: true,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    labelText: 'Email',
+                                                    labelStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          color:
+                                                              Color(0xFF606A85),
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                    hintText:
+                                                        widget.email?.email,
                                                     hintStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelMedium
@@ -1235,7 +1197,7 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Icon(
-                                              Icons.email,
+                                              Icons.emergency,
                                               color: Color(0xFF1B374C),
                                               size: 24.0,
                                             ),
@@ -1253,10 +1215,7 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     labelText:
-                                                        valueOrDefault<String>(
-                                                      widget.email?.email,
-                                                      'Email',
-                                                    ),
+                                                        'Emergency Phone',
                                                     labelStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelMedium
@@ -1270,6 +1229,10 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
+                                                    hintText: widget
+                                                        .emergencyPhone
+                                                        ?.emergencyPhoneDriver
+                                                        .toString(),
                                                     hintStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelMedium
@@ -1362,12 +1325,50 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                             ),
                                           ].divide(SizedBox(width: 12.0)),
                                         ),
+                                      ].divide(SizedBox(height: 16.0)),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Material(
+                                color: Colors.transparent,
+                                elevation: 2.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                child: Container(
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          'Certifications',
+                                          style: FlutterFlowTheme.of(context)
+                                              .headlineSmall
+                                              .override(
+                                                fontFamily: 'Inter Tight',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Icon(
-                                              Icons.emergency,
-                                              color: Color(0xFF1B374C),
+                                              Icons.verified,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .success,
                                               size: 24.0,
                                             ),
                                             Expanded(
@@ -1383,12 +1384,7 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                   autofocus: true,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
-                                                    labelText:
-                                                        valueOrDefault<String>(
-                                                      widget.emergencyPhone
-                                                          ?.emergencyPhone,
-                                                      'Emergency Phone',
-                                                    ),
+                                                    labelText: 'Certification',
                                                     labelStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelMedium
@@ -1402,6 +1398,9 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
+                                                    hintText: widget
+                                                        .certifications
+                                                        ?.certificationsDrivers,
                                                     hintStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelMedium
@@ -1519,176 +1518,6 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
-                                          'Certifications',
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineSmall
-                                              .override(
-                                                fontFamily: 'Inter Tight',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Icon(
-                                              Icons.verified,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .success,
-                                              size: 24.0,
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 16.0, 16.0, 0.0),
-                                                child: TextFormField(
-                                                  controller: _model
-                                                      .txtNameTextController8,
-                                                  focusNode:
-                                                      _model.txtNameFocusNode8,
-                                                  autofocus: true,
-                                                  obscureText: false,
-                                                  decoration: InputDecoration(
-                                                    labelText:
-                                                        valueOrDefault<String>(
-                                                      widget.certifications
-                                                          ?.certifications,
-                                                      'Certifications',
-                                                    ),
-                                                    labelStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF606A85),
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                    hintStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF606A85),
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xFFE5E7EB),
-                                                        width: 2.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiary,
-                                                        width: 2.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    errorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xFFFF5963),
-                                                        width: 2.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    focusedErrorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xFFFF5963),
-                                                        width: 2.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                20.0,
-                                                                24.0,
-                                                                20.0,
-                                                                24.0),
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color:
-                                                            Color(0xFF15161E),
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                  cursorColor:
-                                                      Color(0xFF6F61EF),
-                                                  validator: _model
-                                                      .txtNameTextController8Validator
-                                                      .asValidator(context),
-                                                ),
-                                              ),
-                                            ),
-                                          ].divide(SizedBox(width: 12.0)),
-                                        ),
-                                      ].divide(SizedBox(height: 16.0)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Material(
-                                color: Colors.transparent,
-                                elevation: 2.0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                child: Container(
-                                  width: MediaQuery.sizeOf(context).width * 1.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
                                           'Route Information',
                                           style: FlutterFlowTheme.of(context)
                                               .headlineSmall
@@ -1736,20 +1565,15 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                                 0.0),
                                                     child: TextFormField(
                                                       controller: _model
-                                                          .txtNameTextController9,
+                                                          .txtNameTextController8,
                                                       focusNode: _model
-                                                          .txtNameFocusNode9,
+                                                          .txtNameFocusNode8,
                                                       autofocus: true,
                                                       obscureText: false,
                                                       decoration:
                                                           InputDecoration(
                                                         labelText:
-                                                            valueOrDefault<
-                                                                String>(
-                                                          widget.routeNumber
-                                                              ?.routeNumber,
-                                                          'Route Number',
-                                                        ),
+                                                            'Route Number',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1767,6 +1591,10 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                                       FontWeight
                                                                           .w500,
                                                                 ),
+                                                        hintText: widget
+                                                            .routeNumber
+                                                            ?.routeNumberDriver
+                                                            .toString(),
                                                         hintStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1863,7 +1691,7 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                       cursorColor:
                                                           Color(0xFF6F61EF),
                                                       validator: _model
-                                                          .txtNameTextController9Validator
+                                                          .txtNameTextController8Validator
                                                           .asValidator(context),
                                                     ),
                                                   ),
@@ -1905,18 +1733,13 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                         16.0, 16.0, 16.0, 0.0),
                                                 child: TextFormField(
                                                   controller: _model
-                                                      .txtNameTextController10,
+                                                      .txtNameTextController9,
                                                   focusNode:
-                                                      _model.txtNameFocusNode10,
+                                                      _model.txtNameFocusNode9,
                                                   autofocus: true,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
-                                                    labelText:
-                                                        valueOrDefault<String>(
-                                                      widget.serviceArea
-                                                          ?.serviceArea,
-                                                      'Service Area',
-                                                    ),
+                                                    labelText: 'Service Area',
                                                     labelStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelMedium
@@ -1930,6 +1753,156 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
+                                                    hintText: widget
+                                                        .serviceArea
+                                                        ?.serviceAreaDriver,
+                                                    hintStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          color:
+                                                              Color(0xFF606A85),
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xFFE5E7EB),
+                                                        width: 2.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tertiary,
+                                                        width: 2.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                    errorBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xFFFF5963),
+                                                        width: 2.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                    focusedErrorBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xFFFF5963),
+                                                        width: 2.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                    filled: true,
+                                                    fillColor: Colors.white,
+                                                    contentPadding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                20.0,
+                                                                24.0,
+                                                                20.0,
+                                                                24.0),
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Plus Jakarta Sans',
+                                                        color:
+                                                            Color(0xFF15161E),
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                  cursorColor:
+                                                      Color(0xFF6F61EF),
+                                                  validator: _model
+                                                      .txtNameTextController9Validator
+                                                      .asValidator(context),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Schedule',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        16.0, 16.0, 16.0, 0.0),
+                                                child: TextFormField(
+                                                  controller: _model
+                                                      .txtNameTextController10,
+                                                  focusNode:
+                                                      _model.txtNameFocusNode10,
+                                                  autofocus: true,
+                                                  obscureText: false,
+                                                  decoration: InputDecoration(
+                                                    labelText: 'Schedule',
+                                                    labelStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          color:
+                                                              Color(0xFF606A85),
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                    hintText: widget.schedule
+                                                        ?.scheduleDriver,
                                                     hintStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelMedium
@@ -2022,156 +1995,6 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  'Schedule',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 16.0, 16.0, 0.0),
-                                                child: TextFormField(
-                                                  controller: _model
-                                                      .txtNameTextController11,
-                                                  focusNode:
-                                                      _model.txtNameFocusNode11,
-                                                  autofocus: true,
-                                                  obscureText: false,
-                                                  decoration: InputDecoration(
-                                                    labelText:
-                                                        valueOrDefault<String>(
-                                                      widget
-                                                          .schedule?.schedule,
-                                                      'Schedule',
-                                                    ),
-                                                    labelStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF606A85),
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                    hintStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Plus Jakarta Sans',
-                                                          color:
-                                                              Color(0xFF606A85),
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xFFE5E7EB),
-                                                        width: 2.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiary,
-                                                        width: 2.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    errorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xFFFF5963),
-                                                        width: 2.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    focusedErrorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xFFFF5963),
-                                                        width: 2.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: Colors.white,
-                                                    contentPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                20.0,
-                                                                24.0,
-                                                                20.0,
-                                                                24.0),
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color:
-                                                            Color(0xFF15161E),
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                  cursorColor:
-                                                      Color(0xFF6F61EF),
-                                                  validator: _model
-                                                      .txtNameTextController11Validator
-                                                      .asValidator(context),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
                                       ].divide(SizedBox(height: 16.0)),
                                     ),
                                   ),
@@ -2179,139 +2002,55 @@ class _EditDriverWidgetState extends State<EditDriverWidget> {
                               ),
                               FFButtonWidget(
                                 onPressed: () async {
-                                  await widget.name!.reference
-                                      .update(createDriverRecordData(
-                                    name: _model.txtNameTextController1.text,
-                                  ));
-
-                                  await widget.school!.reference
-                                      .update(createDriverRecordData(
-                                    school: _model.dropDownValue,
-                                  ));
-
-                                  await widget.licenseNumber!.reference
-                                      .update(createDriverRecordData(
-                                    licenseNumber:
-                                        _model.txtNameTextController2.text,
-                                  ));
-
-                                  await widget.experience!.reference
-                                      .update(createDriverRecordData(
-                                    experience:
-                                        _model.txtNameTextController3.text,
-                                  ));
-
-                                  await widget.numberBus!.reference
-                                      .update(createDriverRecordData(
-                                    numberBus:
-                                        _model.txtNameTextController4.text,
-                                  ));
-
-                                  await widget.phione!.reference
-                                      .update(createDriverRecordData(
-                                    certifications:
-                                        _model.txtNameTextController8.text,
-                                  ));
-
-                                  await widget.phione!.reference
-                                      .update(createDriverRecordData(
-                                    phone: _model.txtNameTextController5.text,
-                                  ));
-
-                                  await widget.email!.reference
-                                      .update(createDriverRecordData(
-                                    email: _model.txtNameTextController6.text,
-                                  ));
-
-                                  await widget.emergencyPhone!.reference
-                                      .update(createDriverRecordData(
-                                    emergencyPhone:
+                                  await currentUserReference!
+                                      .update(createUsersRecordData(
+                                    email: _model.txtNameTextController5.text,
+                                    displayName:
+                                        _model.txtNameTextController1.text,
+                                    licenseNumberDriver: int.tryParse(
+                                        _model.txtNameTextController2.text),
+                                    phoneDriver: int.tryParse(
+                                        _model.txtNameTextController4.text),
+                                    emergencyPhoneDriver: int.tryParse(
+                                        _model.txtNameTextController6.text),
+                                    certificationsDrivers:
                                         _model.txtNameTextController7.text,
-                                  ));
-
-                                  await widget.routeNumber!.reference
-                                      .update(createDriverRecordData(
-                                    routeNumber:
-                                        _model.txtNameTextController9.text,
-                                  ));
-
-                                  await widget.serviceArea!.reference
-                                      .update(createDriverRecordData(
-                                    serviceArea:
+                                    routeNumberDriver: int.tryParse(
+                                        _model.txtNameTextController8.text),
+                                    numberBusDriver:
+                                        _model.txtNameTextController3.text,
+                                    scheduleDriver:
                                         _model.txtNameTextController10.text,
-                                  ));
-
-                                  await widget.schedule!.reference
-                                      .update(createDriverRecordData(
-                                    schedule:
-                                        _model.txtNameTextController11.text,
-                                  ));
-                                  {
-                                    safeSetState(
-                                        () => _model.isDataUploading2 = true);
-                                    var selectedUploadedFiles =
-                                        <FFUploadedFile>[];
-                                    var selectedMedia = <SelectedFile>[];
-                                    var downloadUrls = <String>[];
-                                    try {
-                                      selectedUploadedFiles = _model
-                                              .uploadedLocalFile1
-                                              .bytes!
-                                              .isNotEmpty
-                                          ? [_model.uploadedLocalFile1]
-                                          : <FFUploadedFile>[];
-                                      selectedMedia =
-                                          selectedFilesFromUploadedFiles(
-                                        selectedUploadedFiles,
-                                      );
-                                      downloadUrls = (await Future.wait(
-                                        selectedMedia.map(
-                                          (m) async => await uploadData(
-                                              m.storagePath, m.bytes),
-                                        ),
-                                      ))
-                                          .where((u) => u != null)
-                                          .map((u) => u!)
-                                          .toList();
-                                    } finally {
-                                      _model.isDataUploading2 = false;
-                                    }
-                                    if (selectedUploadedFiles.length ==
-                                            selectedMedia.length &&
-                                        downloadUrls.length ==
-                                            selectedMedia.length) {
-                                      safeSetState(() {
-                                        _model.uploadedLocalFile2 =
-                                            selectedUploadedFiles.first;
-                                        _model.uploadedFileUrl2 =
-                                            downloadUrls.first;
-                                      });
-                                    } else {
-                                      safeSetState(() {});
-                                      return;
-                                    }
-                                  }
-
-                                  if (_model.uploadedFileUrl2 != '') {
-                                    await widget.photo!.reference
-                                        .update(createDriverRecordData(
-                                      photo: _model.uploadedFileUrl2,
-                                    ));
-                                  }
-                                  context.safePop();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Driver Editado Correctamente',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
-                                      ),
-                                      duration: Duration(milliseconds: 4000),
-                                      backgroundColor: Color(0xFF39D23F),
+                                    serviceAreaDriver:
+                                        _model.txtNameTextController9.text,
+                                    experienceDriver:
+                                        _model.dropDownExperienceValue,
+                                    photoUrl: valueOrDefault<String>(
+                                      _model.uploadedFileUrl != ''
+                                          ? _model.uploadedFileUrl
+                                          : widget.photo?.photoUrl,
+                                      'https://firebasestorage.googleapis.com/v0/b/tienda-f7723.appspot.com/o/users%2Fsin%20imagen.jpg?alt=media&token=2a136a98-5796-4269-8cd8-563e5d65b59e',
                                     ),
+                                  ));
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Edit Driver'),
+                                        content:
+                                            Text('Driver  successfully edited'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   );
+
+                                  context.pushNamed(DriversWidget.routeName);
                                 },
                                 text: 'Save',
                                 options: FFButtonOptions(

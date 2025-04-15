@@ -57,32 +57,6 @@ class ChatsRecord extends FirestoreRecord {
   int get groupChatId => _groupChatId ?? 0;
   bool hasGroupChatId() => _groupChatId != null;
 
-  // "drivers" field.
-  List<DocumentReference>? _drivers;
-  List<DocumentReference> get drivers => _drivers ?? const [];
-  bool hasDrivers() => _drivers != null;
-
-  // "driver_a" field.
-  DocumentReference? _driverA;
-  DocumentReference? get driverA => _driverA;
-  bool hasDriverA() => _driverA != null;
-
-  // "driver_b" field.
-  DocumentReference? _driverB;
-  DocumentReference? get driverB => _driverB;
-  bool hasDriverB() => _driverB != null;
-
-  // "last_message_sent_by_driver" field.
-  DocumentReference? _lastMessageSentByDriver;
-  DocumentReference? get lastMessageSentByDriver => _lastMessageSentByDriver;
-  bool hasLastMessageSentByDriver() => _lastMessageSentByDriver != null;
-
-  // "last_message_seen_by_driver" field.
-  List<DocumentReference>? _lastMessageSeenByDriver;
-  List<DocumentReference> get lastMessageSeenByDriver =>
-      _lastMessageSeenByDriver ?? const [];
-  bool hasLastMessageSeenByDriver() => _lastMessageSeenByDriver != null;
-
   void _initializeFields() {
     _users = getDataList(snapshotData['users']);
     _userA = snapshotData['user_a'] as DocumentReference?;
@@ -93,13 +67,6 @@ class ChatsRecord extends FirestoreRecord {
         snapshotData['last_message_sent_by'] as DocumentReference?;
     _lastMessageSeenBy = getDataList(snapshotData['last_message_seen_by']);
     _groupChatId = castToType<int>(snapshotData['group_chat_id']);
-    _drivers = getDataList(snapshotData['drivers']);
-    _driverA = snapshotData['driver_a'] as DocumentReference?;
-    _driverB = snapshotData['driver_b'] as DocumentReference?;
-    _lastMessageSentByDriver =
-        snapshotData['last_message_sent_by_driver'] as DocumentReference?;
-    _lastMessageSeenByDriver =
-        getDataList(snapshotData['last_message_seen_by_driver']);
   }
 
   static CollectionReference get collection =>
@@ -142,9 +109,6 @@ Map<String, dynamic> createChatsRecordData({
   DateTime? lastMessageTime,
   DocumentReference? lastMessageSentBy,
   int? groupChatId,
-  DocumentReference? driverA,
-  DocumentReference? driverB,
-  DocumentReference? lastMessageSentByDriver,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -154,9 +118,6 @@ Map<String, dynamic> createChatsRecordData({
       'last_message_time': lastMessageTime,
       'last_message_sent_by': lastMessageSentBy,
       'group_chat_id': groupChatId,
-      'driver_a': driverA,
-      'driver_b': driverB,
-      'last_message_sent_by_driver': lastMessageSentByDriver,
     }.withoutNulls,
   );
 
@@ -176,13 +137,7 @@ class ChatsRecordDocumentEquality implements Equality<ChatsRecord> {
         e1?.lastMessageTime == e2?.lastMessageTime &&
         e1?.lastMessageSentBy == e2?.lastMessageSentBy &&
         listEquality.equals(e1?.lastMessageSeenBy, e2?.lastMessageSeenBy) &&
-        e1?.groupChatId == e2?.groupChatId &&
-        listEquality.equals(e1?.drivers, e2?.drivers) &&
-        e1?.driverA == e2?.driverA &&
-        e1?.driverB == e2?.driverB &&
-        e1?.lastMessageSentByDriver == e2?.lastMessageSentByDriver &&
-        listEquality.equals(
-            e1?.lastMessageSeenByDriver, e2?.lastMessageSeenByDriver);
+        e1?.groupChatId == e2?.groupChatId;
   }
 
   @override
@@ -194,12 +149,7 @@ class ChatsRecordDocumentEquality implements Equality<ChatsRecord> {
         e?.lastMessageTime,
         e?.lastMessageSentBy,
         e?.lastMessageSeenBy,
-        e?.groupChatId,
-        e?.drivers,
-        e?.driverA,
-        e?.driverB,
-        e?.lastMessageSentByDriver,
-        e?.lastMessageSeenByDriver
+        e?.groupChatId
       ]);
 
   @override

@@ -234,12 +234,14 @@ class _SchoolWidgetState extends State<SchoolWidget> {
                                         children: [
                                           Text(
                                             columnSchoolRecord.schoolName,
+                                            textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
-                                                .headlineSmall
+                                                .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Inter Tight',
+                                                  fontFamily: 'Inter',
                                                   color: Color(0xFF1B374C),
                                                   letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                           ),
                                           Text(

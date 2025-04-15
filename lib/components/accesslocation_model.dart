@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'commets2_widget.dart' show Commets2Widget;
+import 'accesslocation_widget.dart' show AccesslocationWidget;
 import 'package:flutter/material.dart';
 
-class Commets2Model extends FlutterFlowModel<Commets2Widget> {
+class AccesslocationModel extends FlutterFlowModel<AccesslocationWidget> {
   @override
   void initState(BuildContext context) {}
 

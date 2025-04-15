@@ -1,4 +1,4 @@
-import '/admin_view/commets2/commets2_widget.dart';
+import '/admin_view/comments/comments_widget.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -310,11 +310,11 @@ class _AdminRating2WidgetState extends State<AdminRating2Widget>
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
-                                              child: Commets2Widget(
-                                                emailuser:
-                                                    listViewCommentsRecord,
-                                                comments:
-                                                    listViewCommentsRecord,
+                                              child: CommentsWidget(
+                                                name: listViewCommentsRecord,
+                                                comment: listViewCommentsRecord,
+                                                photo: listViewCommentsRecord,
+                                                day: listViewCommentsRecord,
                                               ),
                                             ),
                                           );

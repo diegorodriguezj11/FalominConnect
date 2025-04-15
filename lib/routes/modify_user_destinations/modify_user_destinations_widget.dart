@@ -574,7 +574,7 @@ class _ModifyUserDestinationsWidgetState
                                 padding: EdgeInsets.all(8.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: Color(0xFF1B374C),
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleMedium
                                     .override(
