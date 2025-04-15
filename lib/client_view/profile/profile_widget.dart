@@ -738,7 +738,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               .clearRedirectLocation();
 
                                           context.goNamedAuth(
-                                              AutetificationWidget.routeName,
+                                              Auth2Widget.routeName,
                                               context.mounted);
                                         },
                                         child: Icon(

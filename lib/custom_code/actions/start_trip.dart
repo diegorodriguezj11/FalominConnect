@@ -94,9 +94,29 @@ Future<void> startTrip(BuildContext context, String driverId) async {
       return;
     }
 
-    final routeNumber = driverData['numberRoute'] ?? 'N/A';
     final driverName = driverData['display_name'] ?? 'Conductor';
-    final school = driverData['school'] ?? 'Escuela';
+
+    // 🔢 Obtener número de ruta como entero
+    final routeNumber = driverData['RouteNumberDriver'] != null
+        ? int.tryParse(driverData['RouteNumberDriver'].toString()) ?? 0
+        : 0;
+
+    // 🏫 Obtener ubicación de la escuela
+    String schoolLocation = 'Escuela no definida';
+    if (driverData['school'] != null && driverData['school'] != '') {
+      final schoolId = driverData['school'];
+      final schoolDoc = await FirebaseFirestore.instance
+          .collection('School')
+          .doc(schoolId)
+          .get();
+
+      if (schoolDoc.exists) {
+        final schoolData = schoolDoc.data();
+        if (schoolData != null && schoolData.containsKey('Location')) {
+          schoolLocation = schoolData['Location'] ?? 'Sin ubicación';
+        }
+      }
+    }
 
     final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
@@ -104,7 +124,7 @@ Future<void> startTrip(BuildContext context, String driverId) async {
       'title': today,
       'NumberRoute': routeNumber,
       'Driver': driverName,
-      'School': school,
+      'School': schoolLocation,
       'iduser': driverRef,
       'timestamp': FieldValue.serverTimestamp(),
     });

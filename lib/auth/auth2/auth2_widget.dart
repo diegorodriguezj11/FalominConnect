@@ -8,22 +8,22 @@ import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'autetification_model.dart';
-export 'autetification_model.dart';
+import 'auth2_model.dart';
+export 'auth2_model.dart';
 
-class AutetificationWidget extends StatefulWidget {
-  const AutetificationWidget({super.key});
+class Auth2Widget extends StatefulWidget {
+  const Auth2Widget({super.key});
 
-  static String routeName = 'autetification';
-  static String routePath = '/autetification';
+  static String routeName = 'Auth2';
+  static String routePath = '/auth2';
 
   @override
-  State<AutetificationWidget> createState() => _AutetificationWidgetState();
+  State<Auth2Widget> createState() => _Auth2WidgetState();
 }
 
-class _AutetificationWidgetState extends State<AutetificationWidget>
+class _Auth2WidgetState extends State<Auth2Widget>
     with TickerProviderStateMixin {
-  late AutetificationModel _model;
+  late Auth2Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -32,7 +32,7 @@ class _AutetificationWidgetState extends State<AutetificationWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AutetificationModel());
+    _model = createModel(context, () => Auth2Model());
 
     _model.tabBarController = TabController(
       vsync: this,
@@ -140,7 +140,7 @@ class _AutetificationWidgetState extends State<AutetificationWidget>
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
           child: Stack(

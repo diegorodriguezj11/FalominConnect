@@ -252,7 +252,7 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
                       GoRouter.of(context).clearRedirectLocation();
 
                       context.goNamedAuth(
-                          AutetificationWidget.routeName, context.mounted);
+                          Auth2Widget.routeName, context.mounted);
                     },
                     text: 'Send Link',
                     options: FFButtonOptions(

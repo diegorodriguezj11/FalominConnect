@@ -78,13 +78,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : AutetificationWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : Auth2Widget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : AutetificationWidget(),
+              appStateNotifier.loggedIn ? NavBarPage() : Auth2Widget(),
         ),
         FFRoute(
           name: TrackLocationWidget.routeName,
@@ -378,6 +378,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
+          name: Auth2Widget.routeName,
+          path: Auth2Widget.routePath,
+          builder: (context, params) => Auth2Widget(),
+        ),
+        FFRoute(
           name: UserEditWidget.routeName,
           path: UserEditWidget.routePath,
           builder: (context, params) => UserEditWidget(
@@ -514,16 +519,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: AdminRating2Widget.routeName,
           path: AdminRating2Widget.routePath,
           builder: (context, params) => AdminRating2Widget(),
-        ),
-        FFRoute(
-          name: LoginWidget.routeName,
-          path: LoginWidget.routePath,
-          builder: (context, params) => LoginWidget(),
-        ),
-        FFRoute(
-          name: AutetificationWidget.routeName,
-          path: AutetificationWidget.routePath,
-          builder: (context, params) => AutetificationWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
@@ -695,7 +690,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/autetification';
+            return '/auth2';
           }
           return null;
         },
